@@ -1,6 +1,6 @@
 # library-api
 
-A Spring Boot 3 REST API for Labs 1–2, using Java 17, Maven, Spring Web,
+A Spring Boot 3 REST API for Labs 1–4, using Java 17, Maven, Spring Web,
 Spring Data JPA, Validation, H2, and Springdoc OpenAPI.
 
 ## Run
@@ -50,6 +50,9 @@ If port 8080 is occupied, stop the other application or run the JAR with
 | POST | `/borrowings` | Borrow an available book for 14 days |
 | PUT | `/borrowings/{id}/return` | Record a return and its fine |
 | GET | `/members/{id}/borrowings` | List a member's active borrowings |
+| POST | `/reservations` | Reserve an unavailable book for an active member |
+| GET | `/members/{memberId}/reservations` | List a member's active reservations |
+| DELETE | `/members/{memberId}/reservations/{reservationId}` | Cancel a reservation without deleting its history |
 
 GET and PUT return HTTP 200. POST returns HTTP 201 with a `Location` header.
 DELETE returns HTTP 204. Requests for missing records return HTTP 404.
@@ -97,7 +100,25 @@ reflections require student input before the lab can be marked complete.
 ## Swagger UI
 
 Open <http://localhost:8080/swagger-ui/index.html> to inspect and try the endpoints.
-The OpenAPI JSON document is at <http://localhost:8080/v3/api-docs>.
+The configured Swagger entry point is <http://localhost:8080/swagger-ui.html>.
+The OpenAPI JSON document is at <http://localhost:8080/api-docs>.
+Every controller uses DTOs with documented fields/examples. Global errors
+contain `error` and an ISO timestamp; validation errors also include `fieldErrors`.
+
+## Docker (Lab 4)
+
+```shell
+docker build -t library-api:lab4 .
+docker run -p 8080:8080 library-api:lab4
+curl http://localhost:8080/books
+```
+
+The prescribed multistage images are Maven/Temurin17 and Temurin17 JRE Alpine.
+The container runs with `-Xmx256m -Xms128m`. The build skips tests as assigned;
+run `mvn test` separately. H2 is still in memory, so containerization does not
+persist library data across application restarts. Actual Lab4 review, tests,
+Docker and live Swagger evidence are in `reports/lab4-report.md` and
+`docs/lab4-evidence.md`.
 
 ## H2 console and sample data
 

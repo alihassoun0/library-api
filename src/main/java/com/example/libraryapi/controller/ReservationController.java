@@ -1,71 +1,69 @@
 package com.example.libraryapi.controller;
 
-import com.example.libraryapi.entity.Reservation;
+import com.example.libraryapi.dto.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.example.libraryapi.mapper.ReservationMapper;
 import com.example.libraryapi.service.ReservationService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
+@Tag(name = "Reservations", description = "Reserve unavailable books and cancel reservations")
 public class ReservationController {
-
     private final ReservationService reservationService;
+    private final ReservationMapper reservationMapper;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, ReservationMapper reservationMapper) {
         this.reservationService = reservationService;
+        this.reservationMapper = reservationMapper;
     }
 
     @PostMapping("/reservations")
-    public ResponseEntity<Reservation> reserveBook(@Valid @RequestBody ReservationRequest request) {
-        Reservation reservation = reservationService.reserveBook(request.bookId(), request.memberId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
+    @Operation(summary = "Reserve an unavailable book")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public ResponseEntity<ReservationDTO> reserveBook(@Valid @RequestBody ReservationRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(reservationMapper.toDTO(reservationService.reserveBook(request.bookId(), request.memberId())));
     }
 
     @GetMapping("/members/{memberId}/reservations")
-    public List<Reservation> getActiveReservations(@PathVariable Long memberId) {
-        return reservationService.getActiveReservations(memberId);
+    @Operation(summary = "List a member's active reservations")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Success"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public List<ReservationDTO> getActiveReservations(@PathVariable Long memberId) {
+        return reservationService.getActiveReservations(memberId).stream().map(reservationMapper::toDTO).toList();
     }
 
     @DeleteMapping("/members/{memberId}/reservations/{reservationId}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable Long memberId,
-                                                 @PathVariable Long reservationId) {
+    @Operation(summary = "Cancel a member's reservation without deleting its history")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Deleted or cancelled"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long memberId, @PathVariable Long reservationId) {
         reservationService.cancelReservation(memberId, reservationId);
         return ResponseEntity.noContent().build();
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<Map<String, String>> handleConflict(IllegalStateException exception) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Map.of("error", exception.getMessage()));
-    }
-
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<Map<String, String>> handleMissingRecord(ResponseStatusException exception) {
-        return ResponseEntity.status(exception.getStatusCode())
-                .body(Map.of("error", exception.getReason()));
-    }
-
-    @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class,
-            MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<Map<String, String>> handleInvalidRequest(Exception exception) {
-        return ResponseEntity.badRequest().body(Map.of("error", "Invalid reservation request."));
-    }
-
-    public record ReservationRequest(@NotNull Long bookId, @NotNull Long memberId) {
     }
 }

@@ -1,0 +1,13 @@
+.git
+.idea
+.vscode
+target
+reports
+docs
+*.docx
+startup-error.txt
+.codex
+.agents
+.aws
+.env
+*.log

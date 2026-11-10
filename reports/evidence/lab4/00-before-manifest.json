@@ -1,0 +1,110 @@
+[
+    {
+        "Path":  "pom.xml",
+        "SHA256":  "1C9E81D47D15C44D51E55262162FB99D114CB2AA16332DA7A742268D1234DB05"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/LibraryApiApplication.java",
+        "SHA256":  "4958B1BCE0F4EE37970DB46E7DE009CEEFE352B6DA0ECC078D0BDDD54EBFB050"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/controller/BookController.java",
+        "SHA256":  "02987A7725C0F4C04D92DDFCA11B2D7722BDA7C03E4C09AA1C379B7F07CC4460"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/controller/BorrowingController.java",
+        "SHA256":  "D33BFF76834C888E51E906E219F0A0FCFDC0005234D134B5ACD8ACB384B30F30"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/controller/MemberController.java",
+        "SHA256":  "B6F54E0E389135E0CF384963A92E7D053EEF40E14E1027B08D0F117AB17BEAE6"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/controller/ReservationController.java",
+        "SHA256":  "00FBD5EB49B3AA2FB443E638B2E048AE60287C6662CC6DDFAE8E9D73969FC69C"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/entity/Book.java",
+        "SHA256":  "CD496D0CBD7D5689CE27F86886766C236538FBB03B8D0FF393E99B1FEB088A77"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/entity/Borrowing.java",
+        "SHA256":  "A99B706F6D7F9FCC02626D9B64352F20892B3E3531BC362E62FE1519B5EC94E7"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/entity/Member.java",
+        "SHA256":  "B654DB12C06E29D10533FA4DFFB2E83DA1074B5056AF26F9386299A68D00C1B9"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/entity/Reservation.java",
+        "SHA256":  "1ADB3F28E1C57101AEF0D0ECAD47361A3176FFD80E1C7C07EEEA5BAED59B17CE"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/repository/BookRepository.java",
+        "SHA256":  "1BF54AECFA4CED84A6BB204B1E7F49E3696C462FB967D8E55A49F6DDA49885F5"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/repository/BorrowingRepository.java",
+        "SHA256":  "76A64EE2E698A1752430EA61207C4052025E2BF60098503404B39CA4920A68FD"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/repository/MemberRepository.java",
+        "SHA256":  "331024E10C0943375EF35D5AFD5CC887DD6CB61996ACC24F41021BC33AC91C18"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/repository/ReservationRepository.java",
+        "SHA256":  "9C12F65D841CEB39EE490C69FEED3DF76353CD48730A507D581F287EB89A870A"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/service/BorrowingService.java",
+        "SHA256":  "BF9567CA059447C4098CE28C07BC5A53ABFF77833A440405943B184F25096E71"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/service/ReservationService.java",
+        "SHA256":  "76BFDD857A25AC4D6328C9C0D88702E1528102516E61A0D23E32AB88220844FA"
+    },
+    {
+        "Path":  "src/main/resources/application.properties",
+        "SHA256":  "E0F54CB89C23B0D2A66F45EE28937C5997DC11195F7AE7F48A7C30D884BBECE2"
+    },
+    {
+        "Path":  "src/main/resources/data.sql",
+        "SHA256":  "39BA10B6938616C19C24FC6C3FF84998191D55EB0B685386E2D3B139BACBABA5"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/controller/BorrowingControllerTest.java",
+        "SHA256":  "91DF575496887A2872B99B827EB17728B969C1503E676769823852A82B8A24FD"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/controller/BorrowingErrorControllerTest.java",
+        "SHA256":  "4C337B9015111AAA5E331DF2C8E0D7E33DA5EB1CD4FDC2BDDD58DE58E5823364"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/controller/MemberBorrowingControllerTest.java",
+        "SHA256":  "960E4589E54DBE96D00FD8DBC272ABBDFA4CFD24559C4D1C3A67FEF001A7E10E"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/controller/ReservationControllerTest.java",
+        "SHA256":  "0801CD67FF4217935DCDDECF6DDDF4E70ED689B0771C6CB4D03A1550F035E6DB"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/BorrowingFineTest.java",
+        "SHA256":  "DA437031CBEDE591268D453AD92F9895752FEE4122F85F09727EBE83BC2E756C"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/BorrowingFineUnitTest.java",
+        "SHA256":  "5C08B3319F7962A5D506EC08198535DF58B8509B0BF0DFEB64EA88BC44FA13D0"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/BorrowingPersistenceTest.java",
+        "SHA256":  "3FA86EBCD85E5B6A85EE122CEA74B42E647685C775F5E35564B6888AA4F9F0EB"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/BorrowingServiceTest.java",
+        "SHA256":  "8F122F85F292D9FABE303DA5638689DF0CD2A0FA4DD61CF3E1926BAB23F698A4"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/ReservationServiceTest.java",
+        "SHA256":  "C7B936DFB50C4D45A93FA80B2670F1F5F9F1F9193D119C90241B395498107839"
+    }
+]

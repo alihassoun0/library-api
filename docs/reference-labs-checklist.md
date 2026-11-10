@@ -1,6 +1,6 @@
 # Reference Labs 2–8 — Assignment traceability
 
-Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, Lab 1 commits/tag, original tests, actual evidence, and student ownership of decisions. The student's latest explicit instruction authorized Lab 3 despite the still-pending Lab 2 report input. Lab 3 implementation/testing/report are now prepared for final approval; Labs 4–8 remain planning only.
+Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, existing commits/tags, original tests, actual evidence, and student ownership of decisions. Lab3 was submitted at2d5a1d4/tag lab-3. The student's latest instruction authorizes Lab4, whose technical work is verified and awaiting final submission approval. Labs5–8 remain planning only. Lab2's pending human report data/tag are not fabricated by later work.
 
 Every lab requires a report at the exact `reports/labN-report.md` path, a final commit on main tagged `lab-N`, artifacts committed, and a push to the existing origin. Inspect staged files before each commit. Do not invent personal hours, reflections, metrics, images, reviews, experiments, or outcomes. Record actual commands/results/errors in the active lab's evidence log. Screenshots are never a reason to stop independent work; log a precise capture checklist and use allowed tables/text alternatives.
 
@@ -31,7 +31,7 @@ Rubric: four stories implemented and tests pass (4); Git shows at least one test
 
 Latest actual suite: 21 cases, 0 failures, 0 errors, 0 skipped. Evidence: reports/evidence/lab2/01-baseline.txt (9 GREEN), 02-review-red.txt (21, 2 errors), 03-review-green.txt (21 GREEN). Screenshot checklist: docs/lab2-evidence.md. Screenshots are optional for Lab 2.
 
-## Lab 3 — VERIFIED implementation/report; final submission approved
+## Lab 3 — SUBMITTED at 2d5a1d4 / lab-3
 
 Objective: formal specification first; compare AI implementation with specification and identify ambiguity/gaps. Learning: precise machine-readable spec; spec before code; distinguish clarity/ambiguity; use-case acceptance criteria as test oracles.
 
@@ -51,7 +51,7 @@ Objective: formal specification first; compare AI implementation with specificat
 | Report Q2: actual plan confirmation and clarification discussion | Report section 2 includes student path correction, approved A1–A4, actual confirmation/approval | Prepared for review |
 | Report Q3: functional/non-functional classification | Report section 3 covers every spec requirement category and explains precision | Prepared for review |
 | Report Q4: spec-driven vs Lab1 comparison | Report section 4 references actual Lab1 report and observed Lab3 interactions/results, without invented personal feelings | Prepared for review |
-| E: final approved commit/tag/push | Student explicitly approved final submission; inspect exact staged paths and verify local/remote refs during execution | Approved; Git execution/verification follows this snapshot |
+| E: final approved commit/tag/push | Student approved;18 staged files inspected; exact commit2d5a1d4 and tag lab-3 pushed and remote refs verified in the actual submission turn | Completed; lab-1 and8 prior commits preserved |
 
 Approved submission commands: inspect/stage only intended Lab3 files; `git commit -m "lab3: reservation feature from AGENTS.md spec"`; `git tag lab-3`; `git push origin main --tags`; verify the remote commit/tag. The assignment's printed en dash in `–tags` must be corrected to Git's valid `--tags`. No old tag will be moved or created to hide missing prior submission work. Actual final Git identities/status are verified after the commit, outside this immutable submission snapshot.
 
@@ -59,7 +59,7 @@ Rubric evidence: complete approved spec >=5 rules/4ACs (3); implemented feature 
 
 Evidence and optional screenshots: docs/lab3-evidence.md and reports/evidence/lab3/. No screenshot is explicitly required by Lab3, and no capture is claimed. No Lab4 work has begun.
 
-## Lab 4 — NOT STARTED
+## Lab 4 — technical work VERIFIED; final submission APPROVED
 
 Objective: refine design/patterns/separation and deploy a container. Learning: Repository/Service/DTO patterns; find coupling/design flaws; first-class OpenAPI; Docker build/run.
 
@@ -71,8 +71,14 @@ Objective: refine design/patterns/separation and deploy a container. Learning: R
 - F: commit `lab4: DTOs, exception handler, OpenAPI docs, Dockerfile`, tag lab-4, push.
 - **reports/lab4-report.md**: full design review and two most serious issues using design vocabulary; specific DTO/API exposure example; two design patterns/classes/problems; multistage deployment benefits and PostgreSQL changes.
 - Rubric: all controllers use DTOs/no entity responses (3); global-handler tests pass (2); Swagger documents all endpoints (2); Docker image builds and starts (3).
-- Initial comparison: controllers expose entities; Book/Member use repositories directly; local conflict handler is not a global handler; Springdoc dependency exists but annotations/custom JSON path, DTOs, Docker files, report/tag are missing.
-- Screenshots: Swagger expanded endpoints/statuses; successful Docker build/start and curl output. Continue independent work if a human capture or Docker startup is pending.
+- Initial comparison (recorded before changes): entity responses, Book/Member direct repository coupling, local handlers, missing intentional OpenAPI and Docker artifacts. Full severity review is reports/evidence/lab4/design-review.md and pasted into reports/lab4-report.md.
+- A/B completed: BookService/MemberService; BookDTO/MemberDTO/BorrowingDTO/ReservationDTO plus four mappers and two validated requestDTOs; all four controllers expose DTOs only. Existing nested JSON/ACs preserved; no POM/dependency/entity/domain-service/old-test changes.
+- C completed: GlobalExceptionHandler with409/404/400(fieldErrors)/500, error/timestamp payload, preserved ResponseStatusException404. Seven new integration cases cover required borrowing404/409 and remaining mappings; six design/DTO/OpenAPI/CRUD cases supplement them.
+- D completed: four Tags,14 documented operations and seven annotated DTO schemas, configured /swagger-ui.html and /api-docs. Actual running container UI opened in isolated headless Edge; real screenshot/DOM inspected and14 blocks/4 groups counted. Live JSON contains no entity schemas.
+- E completed: exact prescribed multistage Dockerfile/.dockerignore, real successful `docker build -t library-api:lab4 .`, `docker run -p 8080:8080 library-api:lab4`; container1e4523711063 (vibrant_lamarr) running on8080. curl.exe returned HTTP200 with5 sample books. Backend was initially stopped and started with approval; no WSL reinstall needed.
+- Final host `mvn test`: **81 tests,0 failures,0 errors,0 skipped**; original68 unchanged/passing.20 protected files/POM hash-identical. Evidence: reports/evidence/lab4/ and docs/lab4-evidence.md. All four report questions answered with actual evidence.
+- Rubric status: all-controller DTOs(3), handler tests(2), actual documented UI(2), actual image/container(3) technically verified. No self-awarded grade. The student approved the reviewed48-file submission, exact commit, lab-4 tag and push; Git execution/remote verification follow this approved snapshot.
+- Screenshots: real overview13-swagger-ui.png saved. Optional student captures: expand response/example panels, Docker Desktop + curl output, final Git after submission. No screenshot blocker remains.
 
 ## Lab 5 — NOT STARTED
 

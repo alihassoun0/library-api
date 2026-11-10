@@ -1,60 +1,88 @@
 package com.example.libraryapi.controller;
 
-import com.example.libraryapi.entity.Book;
-import com.example.libraryapi.repository.BookRepository;
-import org.springframework.http.HttpStatus;
+import com.example.libraryapi.dto.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import com.example.libraryapi.mapper.BookMapper;
+import com.example.libraryapi.service.BookService;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+@Tag(name = "Books", description = "Manage library books")
 public class BookController {
+    private final BookService bookService;
+    private final BookMapper bookMapper;
 
-    private final BookRepository bookRepository;
-
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookController(BookService bookService, BookMapper bookMapper) {
+        this.bookService = bookService;
+        this.bookMapper = bookMapper;
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    @Operation(summary = "List all books")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Success"),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public List<BookDTO> getAllBooks() {
+        return bookService.getAllBooks().stream().map(bookMapper::toDTO).toList();
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
+    @Operation(summary = "Get a book by ID")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Success"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public BookDTO getBookById(@PathVariable Long id) {
+        return bookMapper.toDTO(bookService.getBookById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        book.setId(null);
-        Book savedBook = bookRepository.save(book);
-        return ResponseEntity.created(URI.create("/books/" + savedBook.getId()))
-                .body(savedBook);
+    @Operation(summary = "Create a book")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO book) {
+        BookDTO saved = bookMapper.toDTO(bookService.createBook(bookMapper.toEntity(book)));
+        return ResponseEntity.created(URI.create("/books/" + saved.id())).body(saved);
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
-        Book book = getBookById(id);
-        book.setIsbn(updatedBook.getIsbn());
-        book.setTitle(updatedBook.getTitle());
-        book.setAuthor(updatedBook.getAuthor());
-        book.setGenre(updatedBook.getGenre());
-        book.setPublishedYear(updatedBook.getPublishedYear());
-        book.setAvailable(updatedBook.isAvailable());
-        return bookRepository.save(book);
+    @Operation(summary = "Replace a book's fields")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Success"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
+    public BookDTO updateBook(@PathVariable Long id, @RequestBody BookDTO updatedBook) {
+        return bookMapper.toDTO(bookService.updateBook(id, bookMapper.toEntity(updatedBook)));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a book")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Deleted or cancelled"),
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
+    })
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        Book book = getBookById(id);
-        bookRepository.delete(book);
+        bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 }

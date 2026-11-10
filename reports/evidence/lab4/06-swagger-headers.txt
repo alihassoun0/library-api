@@ -1,0 +1,15 @@
+HTTP/1.1 302 
+Location: /swagger-ui/index.html
+Content-Length: 0
+Date: Tue, 10 Nov 2026 20:09:38 GMT
+
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Cache-Control: no-store
+Accept-Ranges: bytes
+Content-Type: text/html
+Content-Length: 734
+Date: Tue, 10 Nov 2026 20:09:38 GMT
+
