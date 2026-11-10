@@ -46,6 +46,14 @@ Observed state: branch `main`; remote `origin` is the existing `https://github.c
 
 The next GREEN/report-draft commit is an intermediate Lab 2 checkpoint, not the final prescribed submission commit. Its own hash and pushed remote HEAD can be recovered with `git log --oneline --decorate`; a commit cannot contain its own resulting hash. Push/verification output will be retained separately and referenced from this log. No lab-2 tag will be created while actual effort and personal report sections are pending.
 
+### Confirmed progress commits and remote synchronization
+
+- Inspected the 9 staged paths using `git diff --cached --stat`, `--name-only`, and source/doc `--check` before committing. No source tests or service changes were staged at this GREEN step; the new tests had already been committed as RED.
+- `git commit -m "lab2: apply XP review and draft report pending human input"` with an actual-results body created **63e80a107abf19fb85f5fda1b1f78641c0605adc**. It includes the 21-test GREEN log and incomplete report, not a final submission claim.
+- `git push origin main --tags` exited **0** and pushed main from 37ad1b1 to 63e80a1. `git ls-remote --heads --tags origin` exited **0**, confirming remote main at that exact checkpoint and lab-1 unchanged at 452aaaf51e2aa233a3edfd047e6d9a5dfa176b03. Actual tool results are saved in `reports/evidence/lab2/04-git-sync.json`.
+- `git log --oneline --decorate -8`, `git status --short`, `git rev-parse HEAD`, and `git rev-parse lab-1` confirmed the local/remote checkpoint and preserved tag. Original service/test comparisons again exited 0. Only the original assignment DOCX and startup-error.txt were untracked.
+- This evidence update will be saved as a separate documentation checkpoint; its identity is available in Git history. Final prescribed commit and lab-2 tag remain pending. No Lab 3 artifacts were implemented.
+
 ### Latest test inventory
 
 | Class | Cases | Failures | Errors | Skipped |
