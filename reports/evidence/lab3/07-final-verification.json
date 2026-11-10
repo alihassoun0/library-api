@@ -1,0 +1,21 @@
+{
+    "StartingHead":  "b2d76a399a6f21593171b0d3e76f7eb20c05a2e9",
+    "ProtectedFilesChecked":  21,
+    "ChangedProtectedFiles":  0,
+    "ChangedSourceFilesAfterGapAnalysis":  0,
+    "ApprovedSpecSHA256":  "663428DFD17E04A7B9AF1765E77B6CAC364B78B298253373CCD3972A4117D64B",
+    "BusinessRules":  8,
+    "AcceptanceCriteria":  4,
+    "EndpointRows":  3,
+    "TotalTests":  68,
+    "Failures":  0,
+    "Errors":  0,
+    "Skipped":  0,
+    "SourceDocTrailingWhitespaceFindings":  0,
+    "Lab1Tag":  "452aaaf51e2aa233a3edfd047e6d9a5dfa176b03",
+    "Lab3TagExists":  false,
+    "StagedFiles":  [
+
+                    ],
+    "CommitApprovalReceived":  false
+}

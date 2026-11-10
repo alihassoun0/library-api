@@ -1,0 +1,26 @@
+[
+    {
+        "Path":  "src/test/java/com/example/libraryapi/controller/ReservationControllerTest.java",
+        "SHA256":  "0801CD67FF4217935DCDDECF6DDDF4E70ED689B0771C6CB4D03A1550F035E6DB"
+    },
+    {
+        "Path":  "src/test/java/com/example/libraryapi/service/ReservationServiceTest.java",
+        "SHA256":  "C7B936DFB50C4D45A93FA80B2670F1F5F9F1F9193D119C90241B395498107839"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/service/ReservationService.java",
+        "SHA256":  "76BFDD857A25AC4D6328C9C0D88702E1528102516E61A0D23E32AB88220844FA"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/entity/Reservation.java",
+        "SHA256":  "1ADB3F28E1C57101AEF0D0ECAD47361A3176FFD80E1C7C07EEEA5BAED59B17CE"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/repository/ReservationRepository.java",
+        "SHA256":  "9C12F65D841CEB39EE490C69FEED3DF76353CD48730A507D581F287EB89A870A"
+    },
+    {
+        "Path":  "src/main/java/com/example/libraryapi/controller/ReservationController.java",
+        "SHA256":  "00FBD5EB49B3AA2FB443E638B2E048AE60287C6662CC6DDFAE8E9D73969FC69C"
+    }
+]

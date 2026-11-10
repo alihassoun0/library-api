@@ -1,6 +1,6 @@
 # Reference Labs 2–8 — Assignment traceability
 
-Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this planning checklist. Preserve the single existing project, Lab 1 commits/tag, original tests, actual evidence, and student ownership of decisions. This document plans future work; it does not begin Lab 3.
+Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, Lab 1 commits/tag, original tests, actual evidence, and student ownership of decisions. The student's latest explicit instruction authorized Lab 3 despite the still-pending Lab 2 report input. Lab 3 implementation/testing/report are now prepared for final approval; Labs 4–8 remain planning only.
 
 Every lab requires a report at the exact `reports/labN-report.md` path, a final commit on main tagged `lab-N`, artifacts committed, and a push to the existing origin. Inspect staged files before each commit. Do not invent personal hours, reflections, metrics, images, reviews, experiments, or outcomes. Record actual commands/results/errors in the active lab's evidence log. Screenshots are never a reason to stop independent work; log a precise capture checklist and use allowed tables/text alternatives.
 
@@ -27,23 +27,37 @@ Objective: simulated Agile sprint; observe planning, velocity, TDD, and XP pairi
 
 Required final commands: `mvn test`; `git add .` (inspect intended paths before staging); `git commit -m "lab2: agile sprint — borrowing feature, TDD, XP pair review"`; `git tag lab-2`; `git push origin main --tags`.
 
-Rubric: four stories implemented and tests pass (4); Git shows at least one test before implementation (3); all report questions answered specifically (3). First two are technically verified. Final report criterion is incomplete; no tag or Lab 3 start until resolved.
+Rubric: four stories implemented and tests pass (4); Git shows at least one test before implementation (3); all report questions answered specifically (3). First two are technically verified. Final report criterion and lab-2 tag remain incomplete. The earlier Lab 3 start gate was superseded by the student's explicit later Lab 3 request; this does not declare Lab 2 complete or authorize fabricating its missing data/tag.
 
 Latest actual suite: 21 cases, 0 failures, 0 errors, 0 skipped. Evidence: reports/evidence/lab2/01-baseline.txt (9 GREEN), 02-review-red.txt (21, 2 errors), 03-review-green.txt (21 GREEN). Screenshot checklist: docs/lab2-evidence.md. Screenshots are optional for Lab 2.
 
-## Lab 3 — NOT STARTED; gated by completed Lab 2
+## Lab 3 — VERIFIED implementation/report; final submission approved
 
 Objective: formal specification first; compare AI implementation with specification and identify ambiguity/gaps. Learning: precise machine-readable spec; spec before code; distinguish clarity/ambiguity; use-case acceptance criteria as test oracles.
 
-- A: create **docs/AGENTS.md**, filling every supplied template section: 2–3-sentence purpose, at least 5 rules, Reservation field names/types, at least 3 REST endpoints with request/response/status, at least 4 ACs, exact AC-1 available-book HTTP 409/message, all 3 prohibited changes, and 3 observed style conventions.
-- B: record confirmation of fields, endpoints, rules; ask the student to review/approve the concrete spec/plan **before implementation**, as explicitly required by this step. Implement exactly that approved specification.
-- C: **ReservationServiceTest.java** and **ReservationControllerTest.java** cover AC-1 through AC-4; `mvn test` must pass.
-- D: observe specification gaps/ambiguities; do not immediately fix what the assignment asks to analyze first.
-- E: commit `lab3: reservation feature from AGENTS.md spec`, tag lab-3, push. The document prints an en dash in `–tags`; the valid Git option is `--tags`; record this syntax correction if used.
-- **reports/lab3-report.md**: rule-by-rule precise/ambiguous/missing audit with rule text and actual code; paste plan confirmation and discuss clarifying questions; classify functional/nonfunctional requirements and precision; personal comparison of structured spec vs Lab 1 prompting.
-- Rubric: complete spec with 5 rules/4 ACs (3); feature/all AC tests pass (4); specific code-referenced gap analysis (3).
-- Initial comparison: no Reservation code, spec, tests, report, or tag exists. Existing layered classes can be reused. Spec creation and approval are future human decisions.
-- Screenshots: optional editor spec/confirmation, actual AC test summary, Git/tag evidence. Record exact screens when reached; no capture claimed now.
+| Step / requirement | Artifact / actual evidence | Status |
+|---|---|---|
+| A: complete exact template | docs/AGENTS.md: project context, three-sentence purpose, 8 rules, 5 typed fields, 3 endpoint rows, exactly 4 ACs, prohibited changes, 5 observed conventions | Verified; approved text unchanged |
+| A: AC-1 exact professor message | Service and controller ac1 tests assert Book is available for direct borrowing. and HTTP409 | Passed |
+| B: confirm fields/endpoints/rules before code | Complete spec and Step B plan shown; student's explicit approval of the spec and A1–A4 recorded in docs/lab3-evidence.md and report section 2 | Verified actual interaction |
+| Implement approved feature | Reservation.java, ReservationRepository.java, ReservationService.java, ReservationController.java | Implemented |
+| Required endpoints | POST /reservations ->201; GET /members/{memberId}/reservations ->200; DELETE /members/{memberId}/reservations/{reservationId} ->204 soft cancellation | HTTP tests pass |
+| All eight rules and approved A1–A4 | Missing resources 404; available/inactive/duplicate/repeat conflicts409; generated ID/date/active; filtered lists; member scoping; no side effects; invalid requests400 | Service/HTTP tests pass |
+| C: required test filenames and AC-1–AC-4 | ReservationServiceTest.java (18 cases), ReservationControllerTest.java (29 cases); four explicitly named AC methods in each | 47 new cases pass |
+| C: complete mvn test including previous functionality | reports/evidence/lab3/02-implementation-tests.txt; 04-test-results.json | 68 tests, 0 failures, 0 errors, 0 skipped; original 21 pass |
+| Preserve existing entities/controllers/tests/POM; no dependencies/migrations | 00-protected-files.json and 03-preservation-check.json compare 21 old files; git diff --exit-code HEAD -- src pom.xml | 0 modified protected files |
+| D: observe gaps before correcting them | reports/evidence/lab3/05-gap-analysis.md; report section 1; freeze manifest06 | Recorded; no gap-driven source edits |
+| Report Q1: every rule's text/classification/code evidence | reports/lab3-report.md section 1: 7 precise rules, 1 concurrency ambiguity, no missing rule definitions | Prepared for review |
+| Report Q2: actual plan confirmation and clarification discussion | Report section 2 includes student path correction, approved A1–A4, actual confirmation/approval | Prepared for review |
+| Report Q3: functional/non-functional classification | Report section 3 covers every spec requirement category and explains precision | Prepared for review |
+| Report Q4: spec-driven vs Lab1 comparison | Report section 4 references actual Lab1 report and observed Lab3 interactions/results, without invented personal feelings | Prepared for review |
+| E: final approved commit/tag/push | Student explicitly approved final submission; inspect exact staged paths and verify local/remote refs during execution | Approved; Git execution/verification follows this snapshot |
+
+Approved submission commands: inspect/stage only intended Lab3 files; `git commit -m "lab3: reservation feature from AGENTS.md spec"`; `git tag lab-3`; `git push origin main --tags`; verify the remote commit/tag. The assignment's printed en dash in `–tags` must be corrected to Git's valid `--tags`. No old tag will be moved or created to hide missing prior submission work. Actual final Git identities/status are verified after the commit, outside this immutable submission snapshot.
+
+Rubric evidence: complete approved spec >=5 rules/4ACs (3); implemented feature and all AC tests pass (4); specific code-referenced report gap analysis (3). Technical/report evidence is ready for student review, but final lab submission is not complete until Step E.
+
+Evidence and optional screenshots: docs/lab3-evidence.md and reports/evidence/lab3/. No screenshot is explicitly required by Lab3, and no capture is claimed. No Lab4 work has begun.
 
 ## Lab 4 — NOT STARTED
 
