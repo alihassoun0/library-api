@@ -1,6 +1,6 @@
 # library-api
 
-A simple Spring Boot 3 REST API for Lab 1, using Java 17, Maven, Spring Web,
+A Spring Boot 3 REST API for Labs 1–2, using Java 17, Maven, Spring Web,
 Spring Data JPA, Validation, H2, and Springdoc OpenAPI.
 
 ## Run
@@ -47,6 +47,9 @@ If port 8080 is occupied, stop the other application or run the JAR with
 | GET | `/members` | List all members |
 | GET | `/members/{id}` | Get one member |
 | POST | `/members` | Create a member |
+| POST | `/borrowings` | Borrow an available book for 14 days |
+| PUT | `/borrowings/{id}/return` | Record a return and its fine |
+| GET | `/members/{id}/borrowings` | List a member's active borrowings |
 
 GET and PUT return HTTP 200. POST returns HTTP 201 with a `Location` header.
 DELETE returns HTTP 204. Requests for missing records return HTTP 404.
@@ -79,8 +82,17 @@ For POST `/members`:
 
 Dates use `YYYY-MM-DD`. Supply all fields when replacing a book with PUT.
 The entities intentionally have no extra validation or uniqueness constraints.
-Borrowing has a repository and relationships to Book and Member; borrowing
-endpoints and business rules are outside this lab's scope.
+Borrowing requests accept `{"bookId": 1, "memberId": 1}`. Borrowing returns
+HTTP 201 and makes the book unavailable. Returning a book returns HTTP 200
+with the updated borrowing and restores book availability. The fine is
+EUR 0.50 per overdue day, or zero for a return on or before the due date.
+Unavailable books and repeated returns produce HTTP 409; missing records
+produce HTTP 404. Active borrowings have a null `returnDate`.
+
+Run the complete test suite with `mvn test`. Lab 2's review, command evidence,
+and completion status are recorded in `docs/lab2-xp-review.md`,
+`docs/lab2-evidence.md`, and `reports/lab2-report.md`. Personal hours and
+reflections require student input before the lab can be marked complete.
 
 ## Swagger UI
 

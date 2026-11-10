@@ -25,6 +25,47 @@ Observed state: branch `main`; remote `origin` is the existing `https://github.c
 5. `git commit -m "lab2: GREEN return endpoint and record XP review"` with an evidence body — created **b1a382a**. No history rewrite, tag, or push performed at this point.
 6. Added tests only: `BorrowingFineUnitTest` (5 fixed-date cases), `BorrowingErrorControllerTest` (6 HTTP cases), and `BorrowingPersistenceTest` (1 flush/clear regression). Existing tests/assertions and production code were untouched.
 7. `mvn test 2>&1 | Tee-Object -FilePath reports/evidence/lab2/02-review-red.txt` — captured Maven exit code before encoding-only UTF-8 normalization and exited with it. **Exit 1: 21 tests, 0 assertion failures, 2 errors, 0 skipped.** Both errors are unhandled `IllegalStateException` from the unavailable-book and repeated-return HTTP requests. All 19 other cases pass, including the original 9, direct fine tests, missing-record checks, and database-reload test. This is a genuine test-first RED for R1; R2 and R4 add protection to existing correct behavior and are not falsely claimed as newly observed failures.
+8. Staged only the three new test classes, RED log, and evidence update using explicit `git add --` paths. Inspected `git diff --cached --stat`, `--name-only`, and `git diff --cached --check -- . ':(exclude)reports/evidence/**'` (source/doc checks passed). `git commit -m "lab2: RED conflict tests and direct fine unit coverage"` with actual-results body created **078fa77** before the handler fix.
+9. Applied R1: BorrowingController now locally maps IllegalStateException to HTTP 409 with the exception message under `error`. R3 moved GET /members/{id}/borrowings into BorrowingController using explicit full endpoint paths; removed its prior MemberController mapping/injection. No service logic, entity, repository, POM, or original test assertions changed. README now documents the implemented Lab 2 endpoints and pending report gate.
+10. `mvn test 2>&1 | Tee-Object -FilePath reports/evidence/lab2/03-review-green.txt` with exit-code capture and encoding-only UTF-8 normalization — **exit 0: 21 tests, 0 failures, 0 errors, 0 skipped; BUILD SUCCESS**. The two previous HTTP errors now pass.
+11. `git diff --exit-code e629c25 -- src/main/java/com/example/libraryapi/service/BorrowingService.java src/test/java/com/example/libraryapi/service/BorrowingServiceTest.java src/test/java/com/example/libraryapi/service/BorrowingFineTest.java src/test/java/com/example/libraryapi/controller/MemberBorrowingControllerTest.java` — exit 0, unchanged. `git diff --exit-code 3fedd09 -- src/test/java/com/example/libraryapi/controller/BorrowingControllerTest.java` — exit 0, unchanged. `git diff --check -- . ':(exclude)reports/evidence/**'` — passed. Raw Maven output retains original trailing whitespace.
+12. Created the four-section `reports/lab2-report.md` draft, with the complete review output and factual evidence. Human hours and reflections are visibly pending. Updated backlog story statuses to DONE based on passing behavior while preserving all actual hours as TBD. Added `docs/reference-labs-checklist.md` to map assignment steps, evidence, grading, and future dependency gates; this is planning, not Lab 3 implementation.
+13. Verified the report's pending-input markers with `rg -n 'PENDING|TBD|calculateFine|Status|Grading|R[1-7]' reports/lab2-report.md docs/sprint-backlog.md`; checked raw-log results with `rg -n 'Tests run:|BUILD SUCCESS|BUILD FAILURE' reports/evidence/lab2/03-review-green.txt`; inspected source diffs and repeated the unchanged-service/test comparisons. `git rev-parse lab-1` still returns `452aaaf51e2aa233a3edfd047e6d9a5dfa176b03`.
+
+## Current artifact inventory
+
+- Modified production: BorrowingController.java (existing PUT endpoint GREEN, active GET mapping, local 409 handler), MemberController.java (remove relocated mapping/injection). BorrowingService and original assertions unchanged.
+- Added tests: BorrowingFineUnitTest.java, BorrowingErrorControllerTest.java, BorrowingPersistenceTest.java.
+- Updated documentation: README.md, docs/sprint-backlog.md (DONE behavior; actuals TBD), docs/lab2-xp-review.md, this evidence log.
+- Added deliverable draft: reports/lab2-report.md (all four prescribed sections; human content clearly pending).
+- Added planning: docs/reference-labs-checklist.md (all remaining labs' objectives, steps, artifacts, commands, rubric, evidence, and dependency gates).
+- Actual raw outputs: reports/evidence/lab2/01-baseline.txt, 02-review-red.txt, 03-review-green.txt.
+- Assignment DOCX and startup-error.txt remain untouched, untracked inputs.
+
+## Git checkpoint policy
+
+The next GREEN/report-draft commit is an intermediate Lab 2 checkpoint, not the final prescribed submission commit. Its own hash and pushed remote HEAD can be recovered with `git log --oneline --decorate`; a commit cannot contain its own resulting hash. Push/verification output will be retained separately and referenced from this log. No lab-2 tag will be created while actual effort and personal report sections are pending.
+
+### Latest test inventory
+
+| Class | Cases | Failures | Errors | Skipped |
+|---|---:|---:|---:|---:|
+| BorrowingControllerTest | 1 | 0 | 0 | 0 |
+| BorrowingErrorControllerTest | 6 | 0 | 0 | 0 |
+| MemberBorrowingControllerTest | 1 | 0 | 0 | 0 |
+| BorrowingFineTest | 5 | 0 | 0 | 0 |
+| BorrowingFineUnitTest | 5 | 0 | 0 | 0 |
+| BorrowingPersistenceTest | 1 | 0 | 0 | 0 |
+| BorrowingServiceTest | 2 | 0 | 0 | 0 |
+| **Total** | **21** | **0** | **0** | **0** |
+
+### Errors and corrections
+
+- Original sandbox writes to `.git/index.lock` and Maven's `.m2` cache were denied earlier in this session; approved escalated Git/Maven commands resolved those permission issues. No alternate cache was used to bypass permission controls.
+- The return-endpoint RED test received HTTP 404 before the endpoint existed; the approved endpoint delegated to the existing service and turned that test GREEN (commit b1a382a).
+- Review RED found two unhandled `IllegalStateException` HTTP errors; a controller-local conflict handler fixed them, preserving the service's exception behavior.
+- PowerShell formats a Java class-sharing warning on stderr as `NativeCommandError` text in captured logs. Maven's actual exit code and summary are authoritative: both GREEN runs exited 0. No test failure was hidden or ignored.
+- Windows PowerShell Tee-Object initially used UTF-16; logs were normalized to UTF-8 without trimming/replacing execution output. Git's trailing-whitespace notices in the raw logs are expected output formatting, not source-code check failures.
 
 ## Prompts and decisions
 

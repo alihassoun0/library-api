@@ -1,9 +1,7 @@
 package com.example.libraryapi.controller;
 
-import com.example.libraryapi.entity.Borrowing;
 import com.example.libraryapi.entity.Member;
 import com.example.libraryapi.repository.MemberRepository;
-import com.example.libraryapi.service.BorrowingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +15,9 @@ import java.util.List;
 public class MemberController {
 
     private final MemberRepository memberRepository;
-    private final BorrowingService borrowingService;
 
-    public MemberController(MemberRepository memberRepository, BorrowingService borrowingService) {
+    public MemberController(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.borrowingService = borrowingService;
     }
 
     @GetMapping
@@ -33,11 +29,6 @@ public class MemberController {
     public Member getMemberById(@PathVariable Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
-    }
-
-    @GetMapping("/{id}/borrowings")
-    public List<Borrowing> getActiveBorrowings(@PathVariable Long id) {
-        return borrowingService.getActiveBorrowings(id);
     }
 
     @PostMapping

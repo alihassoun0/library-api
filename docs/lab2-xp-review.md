@@ -44,12 +44,16 @@ Calls to `LocalDate.now()` around midnight can differ across a test and the serv
 
 The original US-01 and US-02/03/04 tests were prepared before their implementations in the conversation. They were not committed as RED states then; the initial checkpoint `e629c25` contains both code and tests. Later commit `3fedd09` genuinely records the missing return-endpoint test before its implementation: 9 cases, one HTTP 404-vs-200 failure, and eight passing existing cases. Preserve that history; do not backdate commits or describe the checkpoint as original test-first evidence. Keep feedback small, run RED then GREEN, retain all existing assertions, and let the student review decisions and supply personal reflections.
 
-## Proposed decisions
+## Implementation decisions and verification
 
-- Apply R1 and R2 as the two primary review improvements.
-- Apply R3 for exact assignment alignment and R4 for stronger persistence evidence.
+- Applied R1: added six HTTP regression cases first; two exposed unhandled exceptions (21 tests, 0 failures, 2 errors). A controller-local IllegalStateException-to-409 handler makes all six pass while keeping missing-record responses at 404 and leaving service logic unchanged.
+- Applied R2: added five fixed-date `BorrowingFineUnitTest` cases calling calculateFine directly without Spring, with numeric BigDecimal comparison and no repository interactions.
+- Applied R3: moved the active-borrowings method into BorrowingController, preserving GET /members/{id}/borrowings and passing the unchanged existing HTTP test.
+- Applied R4: added BorrowingPersistenceTest, flushing and clearing before checking database-reloaded availability, return date, and fine. Existing assertions were preserved.
 - Defer R5 to its explicitly assigned Lab 5 step.
 - Defer R6 and the broader changes in R7; record their practical limits.
 - Student review/personal agreement: **PENDING HUMAN INPUT**. These decisions describe the AI's implementation rationale and are not a fabricated student reflection.
 
 Execution results and commits are recorded in `docs/lab2-evidence.md`.
+
+Final technical verification after these changes: `mvn test` — 21 tests, 0 failures, 0 errors, 0 skipped. This is not a claim that the human report and submission steps are complete.
