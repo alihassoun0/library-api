@@ -20,6 +20,11 @@ Observed state: branch `main`; remote `origin` is the existing `https://github.c
 
 1. `New-Item -ItemType Directory -Force reports/evidence/lab2 | Out-Null` — created the evidence directory.
 2. `mvn test 2>&1 | Tee-Object -FilePath reports/evidence/lab2/01-baseline.txt; exit $LASTEXITCODE` — exit 0, **9 tests, 0 failures, 0 errors, 0 skipped**. Raw output is retained in that file. Current run confirms the already implemented return endpoint's GREEN state.
+3. Converted the baseline log from Windows PowerShell's UTF-16 default to UTF-8 using `Get-Content -Raw` and `System.IO.File.WriteAllText` with `UTF8Encoding(false)`. Text content was preserved. `git diff --cached --check` reported Maven's own trailing spaces in the raw log; source checks are kept separate rather than altering execution output.
+4. `git add -- src/main/java/com/example/libraryapi/controller/BorrowingController.java docs/lab2-evidence.md docs/lab2-xp-review.md reports/evidence/lab2/01-baseline.txt` and encoding-only restaging of that log. Inspected `git diff --cached --stat`, `git diff --cached --check`, and `git diff --cached --name-only` before commit.
+5. `git commit -m "lab2: GREEN return endpoint and record XP review"` with an evidence body — created **b1a382a**. No history rewrite, tag, or push performed at this point.
+6. Added tests only: `BorrowingFineUnitTest` (5 fixed-date cases), `BorrowingErrorControllerTest` (6 HTTP cases), and `BorrowingPersistenceTest` (1 flush/clear regression). Existing tests/assertions and production code were untouched.
+7. `mvn test 2>&1 | Tee-Object -FilePath reports/evidence/lab2/02-review-red.txt` — captured Maven exit code before encoding-only UTF-8 normalization and exited with it. **Exit 1: 21 tests, 0 assertion failures, 2 errors, 0 skipped.** Both errors are unhandled `IllegalStateException` from the unavailable-book and repeated-return HTTP requests. All 19 other cases pass, including the original 9, direct fine tests, missing-record checks, and database-reload test. This is a genuine test-first RED for R1; R2 and R4 add protection to existing correct behavior and are not falsely claimed as newly observed failures.
 
 ## Prompts and decisions
 
