@@ -1,207 +1,168 @@
-# Lab 4 — Design, Implementation, and Deployment
+# Lab 4 – Design, Implementation and Deployment
 
-Source: SE_Lab_Assignment_2026_2027_Codex.docx, complete Lab4 StepsA–F,
-deliverable questions and rubric. The existing Library API was reused.
+**Project:** Library Management API  
+**Course:** Software Engineering (2026–2027)  
+**AI Development Tool:** OpenAI Codex CLI
 
-**Status: technical steps verified; the student has approved the reviewed
-48-file submission, exact commit message, lab-4 tag and push. Lab5 has not
-started. Final Git references are verified after creating the commit.**
+## 1. Design Review
 
-## 1. Design review findings
+The objective of this lab was to review the existing application architecture and improve its design, maintainability, and deployment process.
 
-The actual StepA review, recorded before implementation, follows in full:
+The initial review identified several problems:
 
-# Lab 4 — Step A design review (before changes)
-
-Scope: all src/main/java entities, repositories, services, controllers and application entry point; all src/test/java classes; main resources. Starting commit: 2d5a1d40eba71ced30e0ffe5bbe6ff69605dd119 (lab-3).
-
-| Concern / severity | Actual code evidence | Consequence and required action |
+| Identified Problem | Severity | Proposed Improvement |
 |---|---|---|
-| Separation of concerns — CRITICAL | BookController.updateBook copies all entity fields and saves; create/delete methods also orchestrate persistence. MemberController.createMember assigns ID and saves directly. | Controllers mix HTTP and persistence/update policy. Move those operations into BookService and MemberService, retaining behavior. Existing BorrowingService and ReservationService already own domain workflows. |
-| Layer coupling — CRITICAL | BookController constructor depends on BookRepository; MemberController on MemberRepository. | HTTP classes depend on persistence rather than a service abstraction, increasing coupling and reducing cohesion. Introduce the service boundary for these two resources. |
-| API contract — CRITICAL | BookController exposes Book, MemberController exposes Member, BorrowingController exposes Borrowing, ReservationController exposes Reservation. Borrowing/Reservation responses nest actual Book/Member entities. | JPA state and API shape evolve together; adding a persistence field could unintentionally expose it. Introduce BookDTO, MemberDTO, BorrowingDTO and ReservationDTO plus explicit mappers. Preserve existing nested JSON fields and statuses so previous ACs remain valid. |
-| Global errors — IMPORTANT | No ControllerAdvice exists. BorrowingController handles only IllegalStateException locally. ReservationController has separate conflict, lookup and request handlers. Book/Member use ResponseStatusException. | Current borrowing/reservation conflicts already return409; it would be inaccurate to claim they all return500. Unexpected exceptions and exceptions outside local handlers lack a uniform body/timestamp. Centralize handling; explicitly preserve ResponseStatusException404 so catch-all handling cannot convert missing records to500. |
-| Validation evidence — IMPORTANT | ReservationRequest has @NotNull/@Valid; BorrowingRequest has no validation; no global field-error payload. Existing tests check several statuses but not the complete global mapping set. | Retain existing validation behavior and add global400 field errors. Add the assigned integration cases and tests for409/404/400/500 mappings. |
-| OpenAPI — IMPORTANT | Springdoc dependency is present, but no controller has Tag/Operation/ApiResponse annotations; no DTO Schema annotations exist. application.properties has no /api-docs override. | Generated documentation lacks intentional summaries, response contracts and field examples. Add annotations to every current endpoint, including reservations, and verify running Swagger plus JSON. |
-| Persistence/migration design — no new issue requiring a Lab4 change | Repositories extend JpaRepository; entities use generated IDs and unidirectional associations; existing domain services use transactions. | Preserve entities, repository behavior and borrowing/reservation rules. The concurrency concerns documented in Lab3 remain outside this design/deployment exercise. |
-| Test organization — MINOR | Existing 68 cases combine Spring-backed service/controller and direct fine-unit tests; request fixtures repeat. | Tests already provide meaningful compatibility oracles. Keep every existing file/assertion unchanged; do not perform Lab5 fixture refactoring now. |
+| Controllers handled database operations directly. | Critical | Introduce service classes to separate business logic from HTTP handling. |
+| Controllers returned JPA entities directly. | Critical | Introduce DTOs and mappers to separate the API structure from database entities. |
+| Exception handling was inconsistent across controllers. | Important | Create a global exception handler. |
+| API documentation lacked detailed descriptions and response information. | Important | Add OpenAPI annotations to controllers and DTOs. |
+| Some tests contained repeated setup code. | Minor | Keep the current tests and improve their organization in later refactoring work. |
 
-The two most serious issues are persistence/domain coupling in HTTP controllers and direct entity exposure. Both break separation/abstraction boundaries. Existing tests must remain the behavioral oracle while those boundaries change.
+The two most important problems were the direct use of repositories inside controllers and the exposure of JPA entities through REST endpoints.
 
-The latest user instruction explicitly authorizes this Lab4 DTO/controller/global-handler work. It supersedes Lab3's historical no-controller-change/no-Lab4 scope restrictions for this phase. The approved Lab3 document and tagged history remain unchanged.
+To improve the architecture, BookService and MemberService were introduced. Controllers now handle HTTP requests and delegate application operations to services.
 
+DTOs and mappers were also added to control the data exchanged between the application and its clients.
 
-The two most serious problems were HTTP/persistence coupling and direct entity
-exposure. Previously BookController depended on BookRepository and implemented
-field-copy/update persistence itself; MemberController likewise saved directly.
-This reduced cohesion by combining transport, lookup, and persistence policy.
-[BookService](../src/main/java/com/example/libraryapi/service/BookService.java)
-and [MemberService](../src/main/java/com/example/libraryapi/service/MemberService.java)
-now encapsulate those operations behind constructor-injected service APIs.
-Controllers translate HTTP and map DTOs; they no longer import repositories.
+## 2. DTOs and Their Importance
 
-Entity exposure coupled the external API to persistence structure, including
-nested Book/Member references in Borrowing and Reservation. Explicit DTOs and
-mappers provide an abstraction boundary while preserving every existing JSON
-field, nested relationship, path, success code, and tested AC. ReservationDTO
-was added as well as the three assigned DTOs because the rubric applies to
-**all** controllers, including the feature added in Lab3.
+DTO stands for Data Transfer Object. A DTO is used to transfer data between the application and its clients without exposing the internal database entities directly.
 
-The existing BorrowingService and ReservationService and all entities,
-repositories, old tests, and POM were preserved. Twenty protected files were
-checked by SHA256 and none changed. The Lab3 AGENTS.md remains a historical
-approved specification; the user's explicit Lab4 instruction authorizes the
-current DTO/controller changes without altering that tagged history.
+Previously, the controllers returned JPA entities as JSON responses. This created a dependency between the database structure and the public API.
 
-Local borrowing/reservation handlers were removed and replaced with
-[GlobalExceptionHandler](../src/main/java/com/example/libraryapi/exception/GlobalExceptionHandler.java),
-annotated ControllerAdvice/ResponseBody. Its mappings are IllegalStateException
-409; EntityNotFoundException and NoSuchElementException404; validation400 with
-fieldErrors; malformed input400; unexpected Exception500. ResponseStatusException
-keeps its actual status and reason, preserving all existing missing-record404s.
-Every handled error includes error and an ISO UTC timestamp. Unexpected500
-responses use a generic message instead of exposing internal exception text.
+For example, BookDTO contains only the fields required by the API:
 
-All four controllers have Tag annotations; all14 operations have Operation
-summaries and appropriate ApiResponse entries. All fields of the seven DTOs
-(four response resources, two ID requests, and ErrorResponseDTO) have Schema
-examples. No new dependency or POM change was needed.
+- id
+- isbn
+- title
+- author
+- genre
+- publishedYear
+- available
 
-## 2. DTO decision
+BookMapper converts between the Book entity and BookDTO.
 
-JPA entities describe persistence, not a versioned public interface. Returning
-them directly means a newly added field or relationship can change JSON,
-trigger ORM loading, expose an internal value, or create a cycle without an
-intentional API decision. Input binding to entities can also expose persistence
-fields that clients should not control.
+The same approach was applied to Member, Borrowing, and Reservation.
 
-A concrete example is
-[BookDTO](../src/main/java/com/example/libraryapi/dto/BookDTO.java) and
-[BookMapper](../src/main/java/com/example/libraryapi/mapper/BookMapper.java).
-The DTO explicitly contains only id, isbn, title, author, genre, publishedYear,
-and available. The mapper copies those fields explicitly. A future internal
-Book persistence field would not automatically enter the API; changing the
-contract would require a deliberate DTO/mapper change. That is a maintainability
-and versioning improvement, not a claim that a sensitive Book field currently
-exists. Creation still ignores supplied IDs, as the previous contract requires.
+Using DTOs provides several advantages:
 
-BorrowingDTO contains BookDTO and MemberDTO, not entities, so the existing
-`book.id`, `member.id`, dates, and fine JSON remain compatible. ReservationDTO
-similarly preserves exactly its five fields and nested relationships.
-BorrowingRequestDTO/ReservationRequestDTO accept only IDs, with NotNull/Valid
-using the installed validation dependency. Adding timestamp/fieldErrors to
-error responses is the assigned intentional error-contract extension; it does
-not remove existing error messages or statuses.
+1. **Better security:** Internal entity fields are not automatically exposed to API users.
+2. **Maintainability:** Database changes do not automatically change the API response structure.
+3. **Separation of concerns:** Entities represent database information, while DTOs represent data exchanged through the API.
+4. **Better control:** Developers decide which fields clients can send and receive.
 
-The new ApiDesignContractTest inspects controller signatures and nested DTO
-field types for entity leakage, round-trips all four mappers, and exercises
-Book CRUD/Member creation/read contracts. The unchanged Lab2/3 tests retain
-their original assertions on borrowing/reservation behavior and nested JSON.
+The existing JSON structure and tested API behavior were preserved during this change.
 
-## 3. Pattern identification
+## 3. Design Patterns Identified
 
-1. **Repository:** BookRepository and ReservationRepository extend JpaRepository.
-   Services use persistence operations and domain queries without writing
-   database access in HTTP methods. For example,
-   ReservationRepository.findByMemberIdAndActiveTrue expresses the member/active
-   query behind a persistence abstraction. Repository centralizes persistence
-   access and reduces coupling between workflows and database mechanics.
-2. **Service Layer / application facade:** BookService and MemberService expose
-   application operations to controllers and group persistence orchestration
-   within transactions. BorrowingService already provides the borrow/return
-   facade. A caller invokes one application operation rather than coordinating
-   repositories and update rules in a controller. This improves separation of
-   concerns and cohesion without changing the established borrowing policy.
+Several software design patterns are used in the Library Management API.
 
-The DTO/mapper boundary is an additional pattern: BookMapper, MemberMapper,
-BorrowingMapper, and ReservationMapper adapt internal entities to explicit
-transport records in both directions. GlobalExceptionHandler supplies a single
-cross-cutting error policy instead of duplicated local handlers. These are
-actual classes in the final implementation, not proposed future architecture.
+### Repository Pattern
 
-## 4. Deployment reflection
+The repository pattern separates database operations from the business logic.
 
-The [Dockerfile](../Dockerfile) uses exactly the prescribed stages:
-`maven:3.9-eclipse-temurin-17` builds with `mvn package -DskipTests`, then
-`eclipse-temurin:17-jre-alpine` runs the copied executable JAR. It exposes8080
-and starts Java with `-Xmx256m -Xms128m`. The final image contains the application
-and JRE rather than the Maven toolchain and source tree. A multistage build
-separates build tools from runtime requirements and makes the build reproducible
-inside Docker instead of depending on the host JDK/Maven installation.
+For example, BookRepository and ReservationRepository extend JpaRepository and provide methods for retrieving, saving, and deleting records.
 
-.dockerignore excludes Git, target, reports/docs, editor metadata, the assignment,
-unrelated startup output, and local configuration/secret directories from the
-build context. The runtime has only the JAR copied from the build stage. It uses
-the assignment's runtime image and entrypoint; no production-hardening feature
-or performance guarantee is claimed beyond that specification.
+This makes database access easier to organize and maintain.
 
-Docker initially failed because desktop-linux had no running Linux engine.
-Outside-sandbox WSL inspection showed a docker-desktop WSL2 distribution; the
-WSL1 optional-feature notice was not treated as proof that WSL2 was unavailable.
-Approved `docker desktop start --detach` started the backend. Subsequent
-`docker info` reported server29.8.0 and WSL listed docker-desktop Running/version2.
-No WSL installation, operating-system reconfiguration, or reboot was required.
+### Service Layer Pattern
 
-Actual deployment commands and results:
+The service layer contains application operations and business logic.
 
-| Command / check | Actual result |
-|---|---|
-| docker build -t library-api:lab4 . | Exit0; Maven BUILD SUCCESS and image export completed |
-| docker run -p 8080:8080 library-api:lab4 | Foreground container started; application/Tomcat listening on8080 |
-| curl.exe http://localhost:8080/books (with evidence capture flags) | HTTP200 JSON containing the five original sample books |
-| GET /swagger-ui.html with redirect following | HTTP302 to /swagger-ui/index.html, then HTTP200 HTML |
-| Headless Edge opens running Swagger | Real screenshot/DOM saved; visually inspected14 operations in4 resource groups |
-| GET /api-docs and /api-docs/swagger-config | JSON retrieved; UI configuration targets /api-docs; all14 documented operations inventoried |
+For example, BookService handles book-related operations, while BorrowingService manages borrowing and returning books.
 
-Running container: **1e4523711063**, named **vibrant_lamarr**, using
-library-api:lab4 with host8080 mapped to container8080. Image identity reported
-by Docker: **sha256:fa83484d3e354321d0a36a37afb41c0820f26c86aec7c9fac775f0737b1972ce**.
-Inspect confirms entrypoint `["java","-Xmx256m","-Xms128m","-jar","app.jar"]`.
-The container was deliberately left running for review/screenshots. The Docker
-build skipped test execution as prescribed; the separate host Maven suite is
-the actual test evidence. The image was built from final production source;
-the new host test classes were added afterward and do not change the runtime JAR.
+Controllers call these services instead of accessing repositories directly. This improves separation of concerns and reduces coupling.
 
-Moving to PostgreSQL would require adding its JDBC driver in a separately
-authorized change, supplying an external database/credentials/URL through
-deployment configuration, replacing H2 create-drop with an appropriate durable
-schema-management strategy, and revisiting sample-data initialization. The
-current H2 database is in-memory and resets with the application lifecycle;
-containerizing it does not make that data durable. PostgreSQL was not installed
-or configured in this lab, so no PostgreSQL deployment result is claimed.
+### DTO and Mapper Pattern
 
-## Actual tests and grading verification
+DTOs define the information exchanged through the API, while mappers convert between DTOs and database entities.
 
-| Run | Tests | Failures | Errors | Skipped |
-|---|---:|---:|---:|---:|
-| Before changes | 68 | 0 | 0 | 0 |
-| DTO/controller/global-handler migration, original suite | 68 | 0 | 0 | 0 |
-| Complete final suite (mvn test) | **81** | **0** | **0** | **0** |
+For example, BookMapper converts Book entities into BookDTO objects.
 
-New tests: ApiDesignContractTest6 and GlobalExceptionHandlerTest7. The latter
-includes the required real borrowing404/409 flows, validation400 with field
-errors, malformed400, both assigned not-found exception types, and generic500
-without internal-message leakage. Every prior test file/assertion is unchanged.
-There were no test failures to conceal, weaken, or delete. Only Docker engine
-startup and evidence-parser details required corrections, recorded in the log.
+### Global Exception Handling
 
-| Professor's criterion | Points | Verified evidence |
-|---|---:|---|
-| DTOs in all controllers; no entity responses | 3 | Four resource DTOs/mappers; controller signature and DTO-field guard; live OpenAPI schemas contain only DTO names |
-| Global exception handler tests pass | 2 | Seven new SpringBootTest/MockMvc cases and all existing error/AC cases pass |
-| Swagger UI shows all documented endpoints | 2 | Running rendered UI:14 operation blocks/4 groups; all summaries/statuses; DTO examples; real screenshot |
-| Docker image builds and app starts | 3 | Build log, container/image inspection, startup logs and HTTP200 /books |
+GlobalExceptionHandler uses Spring's @ControllerAdvice to handle exceptions in one place.
 
-All four report questions are answered with actual project evidence. The
-10-point rubric is traced without self-awarding a grade. StepF's exact commit
-message is `lab4: DTOs, exception handler, OpenAPI docs, Dockerfile`; commit,
-lab-4 tag and push were explicitly approved after the staged-file review. Final
-Git identities are recorded in the actual tagged commit/remote references and
-post-submission verification; a commit cannot contain its own resulting hash. Existing
-lab-1/lab-3 and history are preserved; lab-2 was absent initially and is not
-fabricated here. No Lab5 work is included.
+It provides consistent HTTP error responses for different situations, including:
 
-Evidence lives under reports/evidence/lab4 and docs/lab4-evidence.md. Optional
-manual captures can expand a Swagger operation to show its response table and
-Schema examples; the actual captured overview is
-![Running container Swagger UI](evidence/lab4/13-swagger-ui.png).
+- HTTP 400 – Invalid requests.
+- HTTP 404 – Missing resources.
+- HTTP 409 – Business conflicts.
+- HTTP 500 – Unexpected server errors.
+
+The error responses include an error message and timestamp.
+
+These patterns make the application easier to understand, maintain, and extend.
+
+## 4. Deployment Using Docker
+
+Docker was used to package the Library Management API into a container so that the application could run in a consistent environment.
+
+A multi-stage Dockerfile was created.
+
+The first stage uses Maven and Java 17 to build the application. The second stage uses a lightweight Java runtime image to execute the generated JAR file.
+
+The Dockerfile uses the following images:
+
+- Build stage: `maven:3.9-eclipse-temurin-17`
+- Runtime stage: `eclipse-temurin:17-jre-alpine`
+
+The application exposes port 8080 and uses the following JVM options:
+
+`-Xmx256m -Xms128m`
+
+A `.dockerignore` file was also created to exclude unnecessary files from the Docker build context.
+
+### Docker commands
+
+The image was built using:
+
+```bash
+docker build -t library-api:lab4 .
+```
+
+The container was started using:
+
+```bash
+docker run -p 8080:8080 library-api:lab4
+```
+
+The application was then tested using:
+
+```bash
+curl.exe http://localhost:8080/books
+```
+
+The request returned HTTP 200 with the five sample books, confirming that the application was running successfully inside the container.
+
+The Swagger UI was also opened and verified. It displayed 14 documented API operations across four controller groups.
+
+During deployment, Docker initially failed because the Docker Desktop Linux engine was not running. Starting Docker Desktop resolved the problem, and the image was built and executed successfully.
+
+The application currently uses an in-memory H2 database. Moving to PostgreSQL would require additional database configuration, a suitable persistence strategy, and deployment changes. PostgreSQL was not part of this lab's completed implementation.
+
+## 5. Testing and Verification
+
+The complete Maven test suite was executed after the design and implementation changes.
+
+| Test Stage | Tests | Failures | Errors |
+|---|---:|---:|---:|
+| Before implementation | 68 | 0 | 0 |
+| After DTO and architecture changes | 68 | 0 | 0 |
+| Final test suite | **81** | **0** | **0** |
+
+The final build completed successfully with `BUILD SUCCESS`.
+
+The tests verified the DTO structure, mapper conversions, global exception handling, and existing application functionality.
+
+All previous 68 tests remained passing, confirming that the architectural improvements did not break the existing borrowing and reservation features.
+
+## Conclusion
+
+This lab demonstrated the importance of good software architecture and proper separation of concerns.
+
+I learned that using DTOs helps separate the database structure from the public API, while service classes and repositories make the application easier to maintain.
+
+The global exception handler also provides more consistent error responses, and OpenAPI improves API documentation.
+
+Finally, Docker made it possible to package and run the application in a separate environment. Overall, these improvements made the Library Management API more organized, maintainable, and easier to deploy.
