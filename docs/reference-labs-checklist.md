@@ -1,10 +1,10 @@
 # Reference Labs 2–8 — Assignment traceability
 
-Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, existing commits/tags, original tests, actual evidence, and student ownership of decisions. Lab3 was submitted at2d5a1d4/tag lab-3; Lab4 at d159267/lab-4; Lab5 at822e381/lab-5; Lab6 atce03a35/lab-6. The revised Lab4 report remains a separate pending change. The current instruction authorizes all Lab7 work; student review and explicit approval are required before commit/tag/push. Lab8 remains unstarted. Lab2's missing final lab-2 tag remains outstanding.
+Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, existing commits/tags, original tests, actual evidence, and student ownership of decisions. Lab3 was submitted at2d5a1d4/tag lab-3; Lab4 at d159267/lab-4; Lab5 at822e381/lab-5; Lab6 atce03a35/lab-6; Lab7 ataffff78/lab-7. The revised Lab4 report remains a separate pending change. The current instruction authorizes Lab8 estimation/report work; commit/tag/push require final review and approval. Lab2's missing final lab-2 tag remains outstanding.
 
 Every lab requires a report at the exact `reports/labN-report.md` path, a final commit on main tagged `lab-N`, artifacts committed, and a push to the existing origin. Inspect staged files before each commit. Do not invent personal hours, reflections, metrics, images, reviews, experiments, or outcomes. Record actual commands/results/errors in the active lab's evidence log. Screenshots are never a reason to stop independent work; log a precise capture checklist and use allowed tables/text alternatives.
 
-## Lab 2 — ACTIVE; human report input pending
+## Lab 2 — finalization pending; approximately3h actual clarified, lab-2 tag missing
 
 Objective: simulated Agile sprint; observe planning, velocity, TDD, and XP pairing. Learning: well-formed stories/task breakdown; story-driven implementation; test before code; personal estimated/actual velocity.
 
@@ -16,10 +16,10 @@ Objective: simulated Agile sprint; observe planning, velocity, TDD, and XP pairi
 | C: US-02 test first, return date/availability/fine, PUT endpoint | BorrowingServiceTest, BorrowingControllerTest, BorrowingPersistenceTest; service/controller | Verified; genuine endpoint RED 3fedd09 -> GREEN b1a382a |
 | C: US-03 test first; active-member query and GET mapping in BorrowingController | BorrowingRepository, BorrowingService, BorrowingController; unchanged MemberBorrowingControllerTest | Verified |
 | C: US-04 pure method and direct on-time/due/1-day/7-day unit cases | BorrowingFineUnitTest (5 cases), existing BorrowingFineTest (5 integration cases) | Verified |
-| C/E: actual time per story, statuses DONE | Backlog story behavior DONE; actuals TBD by explicit user instruction | Actual hours pending |
+| C/E: actual time per story, statuses DONE | Historical approximate2/1.5/1/1h story sum retained only as history; student clarified approximately3h overall actual from memory | Overall actual resolved; no invented per-story allocation; DONE behavior retained |
 | D: prescribed senior review of errors, coverage, readability, XP | docs/lab2-xp-review.md; full output pasted into report | Recorded |
 | D: apply at least two review suggestions | R1 conflict mapping/tests; R2 direct fine units; also R3 placement/R4 persistence test | Verified; review RED 078fa77 then GREEN |
-| Report Q1: backlog, actual/estimated ratio, above/below 1 | reports/lab2-report.md section 1; denominator 10 hours | Student hours/numeric result pending |
+| Report Q1: backlog, actual/estimated ratio, above/below 1 | Lab2 report/backlog updated to approximately3h actual against unchanged10h estimate; approximate ratio0.30 | Clarified consistently; final report review/tag pending |
 | Report Q2: actual RED observation and personal effect of TDD | Report section 2; raw logs and commit facts | Personal reflection pending |
 | Report Q3: full review; applied/rejected suggestions and why | Report section 3 | Student review/response pending |
 | Report Q4: AI/velocity interpretation; next sprint prediction | Report section 4 | Student input pending |
@@ -156,7 +156,7 @@ Objective: structured tests, >=80% service coverage, AI test audit/evals. Learni
 - Subsequent student instruction approved the final12-file submission, exact message, lab-7 and origin push/verification. Fresh precommit suite106/0/0/0, overall line coverage96.73%, services100%; both deliberate defects fully restored and all original source/test/config hashes preserved. Earlier pending markers describe preparation; Git outcomes are verified after execution. Lab8 remains unstarted.
 - Screenshots: before/after JaCoCo (tables permitted), both real failing experiment summaries, final restored GREEN. Keep raw logs regardless of captures.
 
-## Lab 8 — NOT STARTED
+## Lab 8 — ACTIVE; independent calculations complete, personal effort inputs pending
 
 Objective: function points and COCOMO compared with actual effort. Learning: UFP counts, organic COCOMO81, all-lab effort comparison, AI LOC critique.
 
@@ -168,7 +168,14 @@ Objective: function points and COCOMO compared with actual effort. Learning: UFP
 - F: commit `lab8: FP estimation, COCOMO analysis, effort retrospective`, tag lab-8, push.
 - **reports/lab8-report.md**: full UFP table/complexity rationale; all-lab effort table/ratios and velocity multiplier; numerical LOC vs FP critique; modified alpha supported by actual productivity calculation; student's personal lifecycle reflection. Estimates must never masquerade as measured quantities.
 - Rubric: justified UFP table (3); estimated/actual hours all8 (3); correct numeric COCOMO (2); AI/lifecycle final reflection (2).
-- Initial comparison: only original Lab2 story estimates currently recorded; no all-lab actuals, UFP, COCOMO, EQF, report/tag. Human effort/classification/reflections and lecture formula will be needed.
+- Assignment and supplied46-page Chapter8 lecture read: pages23–29 FP definitions/weights,15–16 COCOMO/152-hour person-month,31–32 exact area-based DeMarco EQF. No ratio is falsely labeled EQF. Fixed-estimate approximation is explicitly distinguished from a dated forecast history.
+- A/B proposed count complete for student judgment:8 EI33FP,0 EO,6 EQ20FP,4 ILF34FP,2 course-convention interfaces12FP =99UFP;99/9=11days;×7.5=82.5hours. All14 endpoints counted once; H2 connector convention and stricter94FP boundary sensitivity disclosed rather than silently double-counting tables. Full fields/rules/complexity reasons in report.
+- C recovery/update: only personal original estimate Lab2=10h was recovered; other original forecasts are not recorded and professor durations are not substituted. Lab1 actual approximately2h from memory. Student clarified Lab2 total actual approximately3h from memory, not measured; historical5.5h story sum is not used as the total. Lab2 report/backlog and Lab8 table consistently show approximate ratio0.30. Labs3–7 remain untracked/unknown; Lab8 in progress, actual to be recorded after completion. No project totals/ratios, numerical velocity, EQF, productivity rates or modified numerical alpha are calculated from incomplete inputs.
+- D complete hypothetical scope/LOC rationale:260/420/680 ->weighted436.6667LOC,0.4366667KLOC; HM1.005469, TDEV2.505187months, average0.401355FTE,152.8313model hours at152h/month. No extension implemented. AI-alpha scaling2.4×A/E is a stated assumption awaiting real totals.
+- E measured:30 production Java files,1249 physical LF-counted lines; LOC/hour1249/A, FP/hour99/A await total actual effort. No invented personal productivity result or manual-code control group.
+- Five-question reports/lab8-report.md and compact docs/lab8-evidence.md created; factual lifecycle reflection grounded in recorded requirements/review/testing. Numerical project-effort portions remain visibly incomplete. Intended5-file scope: Lab8 report/evidence/checklist/reconciled backlog plus expressly requested Lab2 report correction; no redundant raw bundles.
+- Final main verification:106 tests pass,0 failures/errors/skips; overall lines296/306=96.73%, services102/102=100%. Production/tests/POM and existing tags/history preserved; pending Lab4 report remains excluded. Earlier Docker/Swagger evidence retained; no current live deployment result invented.
+- Submission remains approval-gated: exact message `lab8: FP estimation, COCOMO analysis, effort retrospective`; lab-8 not created. Final-course missing lab-2 tag and pending Lab4 report remain visible. Lab8 is not declared finished while effort data is incomplete.
 - Screenshots: optional completed calculation tables and final Git/tag/remote inventory. No image required in place of valid textual calculations.
 
 ## Final submission gate

@@ -8,15 +8,15 @@
 
 The objective of this lab was to simulate an Agile sprint using four user stories related to the borrowing process of the Library Management API. Each story was assigned an estimated effort before implementation.
 
-| ID | User Story | Estimated Hours | Actual Hours (Approx.) | Status |
+| ID | User Story | Estimated Hours | Historical Story-Level Figures (Approx.) | Status |
 |---|---|---:|---:|---|
 | US-01 | Record a book borrowing | 3 | 2 | Done |
 | US-02 | Record a book return | 3 | 1.5 | Done |
 | US-03 | View active borrowings | 2 | 1 | Done |
 | US-04 | Calculate overdue fines | 2 | 1 | Done |
-| **Total** | | **10** | **5.5** | **Done** |
+| **Original estimated total** | | **10** | **Not used as overall actual** | **Done** |
 
-*Note: Actual hours are approximate estimates reconstructed from memory, not measured time records.*
+*Clarified total actual effort: approximately **3 hours** for Lab 2, retrospectively reconstructed from memory by the student, not measured time. The original **10-hour estimate** is unchanged. The historical story-level figures above sum to approximately5.5 hours, but the student clarified that they are not a reliable measure of total elapsed effort. They are retained only as historical figures and are not used as the lab's actual total. No new per-story allocation of the3 hours is invented.*
 
 The four user stories were successfully implemented and tested.
 
@@ -24,9 +24,9 @@ The velocity ratio is calculated as follows:
 
 **Velocity Ratio = Total Actual Hours / Total Estimated Hours**
 
-**Velocity Ratio = 5.5 / 10 = 0.55**
+**Actual/Estimated Effort Ratio = approximately 3 / 10 = 0.30**
 
-The result is below 1.0, meaning that the actual estimated effort was lower than the initial planned effort. AI assistance helped reduce implementation time, although reviewing generated code, understanding suggestions, and fixing errors still required additional effort.
+The ratio is below1.0: the student's approximate retrospective total is lower than the original planned effort. This is an estimate-versus-recollection comparison, not measured time or DeMarco EQF. Review, understanding suggestions and correcting errors remain part of the work; the ratio alone does not measure an AI-caused speedup.
 
 ## 2. Test-Driven Development (TDD) Observation
 
@@ -75,7 +75,7 @@ The code review helped me understand that passing tests does not automatically m
 
 Codex made the implementation faster, but I still needed time to understand its suggestions, review the generated code, and fix errors.
 
-The four user stories required approximately 5.5 hours compared with the original estimate of 10 hours. The velocity ratio of 0.55 indicates that the actual estimated effort was lower than planned.
+The student's clarified retrospective estimate for the entire Lab2 is approximately3 hours, compared with the unchanged original10-hour estimate. The resulting approximate actual/estimated ratio is0.30. The older5.5-hour story sum is not used as the lab total or as a productivity denominator.
 
 AI assistance reduced repetitive coding work and helped identify implementation problems. However, its effectiveness also depended on the quality of the instructions, the existing project structure, and the developer's ability to review and verify its output.
 
