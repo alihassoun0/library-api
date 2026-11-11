@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public record ErrorResponseDTO(
@@ -12,4 +14,10 @@ public record ErrorResponseDTO(
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @Schema(description = "Validation errors by field", example = "{\"bookId\":\"must not be null\"}")
         Map<String, String> fieldErrors) {
+
+    public ErrorResponseDTO {
+        if (fieldErrors != null) {
+            fieldErrors = Collections.unmodifiableMap(new LinkedHashMap<>(fieldErrors));
+        }
+    }
 }
