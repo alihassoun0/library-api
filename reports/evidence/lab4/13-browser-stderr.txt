@@ -1,7 +1,0 @@
-msedge.exe : 130242 bytes written to file C:\Users\USER\Desktop\library-api\reports\evidence\lab4\13-swagger-ui.png
-At line:2 char:198
-+ ... er-ui.png'; & 'C:\Program Files (x86)\Microsoft\Edge\Application\msed ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (130242 bytes wr...-swagger-ui.png:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
