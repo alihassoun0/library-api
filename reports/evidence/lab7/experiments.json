@@ -1,0 +1,1852 @@
+﻿{
+    "CorrectPolicy":  "0.50 daily rate; nonpositive overdue days return BigDecimal.ZERO",
+    "PreExperiments":  {
+                           "Total":  106,
+                           "Passed":  106,
+                           "MavenExit":  0
+                       },
+    "Bug1":  {
+                 "Stage":  "rate-1.00",
+                 "MavenExit":  1,
+                 "Total":  106,
+                 "Passed":  98,
+                 "Failures":  8,
+                 "Errors":  0,
+                 "Skipped":  0,
+                 "Cases":  [
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "openApi_shouldDocumentAllFourteenOperationsAndDtoSchemas",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "memberDto_shouldPreserveCreationAndReadContract",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "bookDto_shouldPreserveCrudJsonStatusesAndLocation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "mappers_shouldRoundTripAllFieldsIncludingNestedRelationships",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "controllersAndDtoFields_shouldHaveNoJpaEntityTypes",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "swaggerUi_shouldBeAvailableAtAssignedPath",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingControllerTest",
+                                   "Name":  "returnBook_shouldReturnUpdatedBorrowingAndRestoreAvailability",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnConflictForUnavailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "getActiveBorrowings_shouldReturnNotFoundForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnNotFoundForMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnNotFoundForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "returnBook_shouldReturnNotFoundForMissingBorrowing",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "returnBook_shouldReturnConflictForRepeatedReturn",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "createAndBorrow_shouldExposeUnavailableBookThroughRealHttp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "borrowAndReturn_shouldRestoreAvailabilityAndPersistZeroFineThroughRealHttp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "secondBorrow_shouldReturn409WithoutCreatingAnotherLoanThroughRealHttp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                   "Name":  "listMembers_shouldContainPersistedMemberWithItsActualFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                   "Name":  "listBooks_shouldContainPersistedBookWithItsActualFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "nonexistentBorrowingBook_shouldReturn404WithConsistentBody",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "noSuchElement_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "unexpectedException_shouldReturn500WithoutInternalMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "missingRequiredIds_shouldReturn400WithFieldErrors",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "entityNotFound_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "malformedJson_shouldReturn400WithTimestamp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "alreadyBorrowedBook_shouldReturn409WithConsistentBody",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.MemberBorrowingControllerTest",
+                                   "Name":  "getMemberBorrowings_shouldReturnOnlyActiveBorrowings",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn404ForMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac1_postAvailableBook_shouldReturn409AndExactMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForMissingReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "getReservations_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldAllowRecreationAfterCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[4]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[5]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[6]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[7]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[8]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[9]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn409ForRepeatedCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldKeepIdDateAndActiveStateServerControlled",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac2_postReservation_shouldReturn201AndPersistExpectedFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac4_deleteReservation_shouldReturn204RetainInactiveRecordAndExcludeFromList",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "getReservations_shouldReturn200AndEmptyArrayForExistingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn409ForInactiveMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn409ForActiveDuplicateWithoutSavingAnother",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForAnotherMembersRecordAndPreserveIt",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac3_getReservations_shouldReturnOnlyMembersActiveRecords",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "accessor_shouldPreventMutationOfTheResponseSnapshot",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "constructor_shouldPreserveOptionalNullFieldErrors",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "constructor_shouldSnapshotInputWithoutChangingOrderOrNullValues",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[3]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[4]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[5]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[3]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[4]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[5]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingPersistenceTest",
+                                   "Name":  "returnBook_shouldPersistReturnAndAvailabilityAfterClearingContext",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                   "Name":  "returnBook_shouldMarkBookAsAvailableAndSetZeroFine",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                   "Name":  "borrowBook_shouldMarkBookAsUnavailable",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnMissingBorrowing_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowMissingMember_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnExactlyDue_shouldChargeZero",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowAvailableBook_shouldPersistRelationshipsDatesAndAvailability",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnAlreadyReturned_shouldRejectWithoutChangingStateOrSaving",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowMissingBook_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineZeroDaysLate_shouldBeZero",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowings_shouldReturnRepositoryResultsForMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowUnavailableBook_shouldRejectConflict",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineAcrossMonthBoundary_shouldCountElapsedDays",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowingsExistingMemberWithoutLoans_shouldReturnEmptyList",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineNegativeDays_shouldBeZero",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineOneDayLate_shouldBeFiftyCents",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowingsMissingMember_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnThreeDaysLate_shouldChargeOneFifty",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineSevenDaysLate_shouldBeThreeFifty",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003c0\u003e but was: \u003c-1\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnOnTime_shouldRecordZeroFineAndRestoreAvailability",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac4_cancelReservation_shouldPersistInactiveRecordAndExcludeItFromListing",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reservationLifecycle_shouldNotModifyBookMemberOrBorrowingData",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectInactiveMemberWithoutSaving",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac3_getActiveReservations_shouldExcludeCancelledAndOtherMembersRecords",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectAnotherMembersReservationWithoutChangingIt",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldAllowDifferentMembersToReserveSameBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac1_availableBook_shouldBeRejectedWithExactMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectMissingReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldAllowNewReservationAfterCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac2_reserveBook_shouldPersistGeneratedIdRelationshipsDateAndActiveState",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "getActiveReservations_shouldReturnEmptyListForExistingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "getActiveReservations_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectRepeatedCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectDuplicateActiveReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               }
+                           ]
+             },
+    "Restore1":  {
+                     "Stage":  "restored-after-rate",
+                     "Total":  106,
+                     "Failed":  0,
+                     "MavenExit":  0
+                 },
+    "Bug2":  {
+                 "Stage":  "zero-is-null",
+                 "MavenExit":  1,
+                 "Total":  106,
+                 "Passed":  92,
+                 "Failures":  14,
+                 "Errors":  0,
+                 "Skipped":  0,
+                 "Cases":  [
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "openApi_shouldDocumentAllFourteenOperationsAndDtoSchemas",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "memberDto_shouldPreserveCreationAndReadContract",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "bookDto_shouldPreserveCrudJsonStatusesAndLocation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "mappers_shouldRoundTripAllFieldsIncludingNestedRelationships",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "controllersAndDtoFields_shouldHaveNoJpaEntityTypes",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                   "Name":  "swaggerUi_shouldBeAvailableAtAssignedPath",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingControllerTest",
+                                   "Name":  "returnBook_shouldReturnUpdatedBorrowingAndRestoreAvailability",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: \u003ctrue\u003e but was: \u003cfalse\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnConflictForUnavailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "getActiveBorrowings_shouldReturnNotFoundForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnNotFoundForMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "borrowBook_shouldReturnNotFoundForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "returnBook_shouldReturnNotFoundForMissingBorrowing",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                   "Name":  "returnBook_shouldReturnConflictForRepeatedReturn",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "createAndBorrow_shouldExposeUnavailableBookThroughRealHttp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "borrowAndReturn_shouldRestoreAvailabilityAndPersistZeroFineThroughRealHttp",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                   "Name":  "secondBorrow_shouldReturn409WithoutCreatingAnotherLoanThroughRealHttp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                   "Name":  "listMembers_shouldContainPersistedMemberWithItsActualFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                   "Name":  "listBooks_shouldContainPersistedBookWithItsActualFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "nonexistentBorrowingBook_shouldReturn404WithConsistentBody",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "noSuchElement_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "unexpectedException_shouldReturn500WithoutInternalMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "missingRequiredIds_shouldReturn400WithFieldErrors",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "entityNotFound_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "malformedJson_shouldReturn400WithTimestamp",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                   "Name":  "alreadyBorrowedBook_shouldReturn409WithConsistentBody",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.MemberBorrowingControllerTest",
+                                   "Name":  "getMemberBorrowings_shouldReturnOnlyActiveBorrowings",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn404ForMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac1_postAvailableBook_shouldReturn409AndExactMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForMissingReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "getReservations_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldAllowRecreationAfterCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn404ForMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[4]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[5]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[6]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[7]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[8]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[9]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn409ForRepeatedCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldKeepIdDateAndActiveStateServerControlled",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac2_postReservation_shouldReturn201AndPersistExpectedFields",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac4_deleteReservation_shouldReturn204RetainInactiveRecordAndExcludeFromList",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "getReservations_shouldReturn200AndEmptyArrayForExistingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn409ForInactiveMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "postReservation_shouldReturn409ForActiveDuplicateWithoutSavingAnother",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "deleteReservation_shouldReturn404ForAnotherMembersRecordAndPreserveIt",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[1]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[2]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                   "Name":  "ac3_getReservations_shouldReturnOnlyMembersActiveRecords",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "accessor_shouldPreventMutationOfTheResponseSnapshot",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "constructor_shouldPreserveOptionalNullFieldErrors",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                   "Name":  "constructor_shouldSnapshotInputWithoutChangingOrderOrNullValues",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[1]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[2]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[4]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                   "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[5]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[1]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[2]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[3]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[4]",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                   "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[5]",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingPersistenceTest",
+                                   "Name":  "returnBook_shouldPersistReturnAndAvailabilityAfterClearingContext",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                   "Name":  "returnBook_shouldMarkBookAsAvailableAndSetZeroFine",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                   "Name":  "borrowBook_shouldMarkBookAsUnavailable",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnMissingBorrowing_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowMissingMember_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnExactlyDue_shouldChargeZero",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowAvailableBook_shouldPersistRelationshipsDatesAndAvailability",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnAlreadyReturned_shouldRejectWithoutChangingStateOrSaving",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowMissingBook_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineZeroDaysLate_shouldBeZero",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowings_shouldReturnRepositoryResultsForMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "borrowUnavailableBook_shouldRejectConflict",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineAcrossMonthBoundary_shouldCountElapsedDays",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowingsExistingMemberWithoutLoans_shouldReturnEmptyList",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineNegativeDays_shouldBeZero",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineOneDayLate_shouldBeFiftyCents",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "activeBorrowingsMissingMember_shouldReturn404",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnThreeDaysLate_shouldChargeOneFifty",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "fineSevenDaysLate_shouldBeThreeFifty",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                   "Name":  "returnOnTime_shouldRecordZeroFineAndRestoreAvailability",
+                                   "Outcome":  "failure",
+                                   "Message":  "expected: not \u003cnull\u003e"
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac4_cancelReservation_shouldPersistInactiveRecordAndExcludeItFromListing",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reservationLifecycle_shouldNotModifyBookMemberOrBorrowingData",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectInactiveMemberWithoutSaving",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac3_getActiveReservations_shouldExcludeCancelledAndOtherMembersRecords",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectAnotherMembersReservationWithoutChangingIt",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldAllowDifferentMembersToReserveSameBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac1_availableBook_shouldBeRejectedWithExactMessage",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectMissingReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldAllowNewReservationAfterCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectMissingBook",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "ac2_reserveBook_shouldPersistGeneratedIdRelationshipsDateAndActiveState",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "getActiveReservations_shouldReturnEmptyListForExistingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "getActiveReservations_shouldRejectMissingMember",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "cancelReservation_shouldRejectRepeatedCancellation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               },
+                               {
+                                   "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                   "Name":  "reserveBook_shouldRejectDuplicateActiveReservation",
+                                   "Outcome":  "passed",
+                                   "Message":  ""
+                               }
+                           ]
+             },
+    "Restore2Final":  {
+                          "Total":  106,
+                          "Passed":  106,
+                          "Failures":  0,
+                          "Errors":  0,
+                          "Skipped":  0,
+                          "MavenExit":  0,
+                          "Cases":  [
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "openApi_shouldDocumentAllFourteenOperationsAndDtoSchemas",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "memberDto_shouldPreserveCreationAndReadContract",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "bookDto_shouldPreserveCrudJsonStatusesAndLocation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "mappers_shouldRoundTripAllFieldsIncludingNestedRelationships",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "controllersAndDtoFields_shouldHaveNoJpaEntityTypes",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ApiDesignContractTest",
+                                            "Name":  "swaggerUi_shouldBeAvailableAtAssignedPath",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingControllerTest",
+                                            "Name":  "returnBook_shouldReturnUpdatedBorrowingAndRestoreAvailability",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "borrowBook_shouldReturnConflictForUnavailableBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "getActiveBorrowings_shouldReturnNotFoundForMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "borrowBook_shouldReturnNotFoundForMissingBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "borrowBook_shouldReturnNotFoundForMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "returnBook_shouldReturnNotFoundForMissingBorrowing",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingErrorControllerTest",
+                                            "Name":  "returnBook_shouldReturnConflictForRepeatedReturn",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                            "Name":  "createAndBorrow_shouldExposeUnavailableBookThroughRealHttp",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                            "Name":  "borrowAndReturn_shouldRestoreAvailabilityAndPersistZeroFineThroughRealHttp",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.BorrowingHttpIntegrationTest",
+                                            "Name":  "secondBorrow_shouldReturn409WithoutCreatingAnotherLoanThroughRealHttp",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                            "Name":  "listMembers_shouldContainPersistedMemberWithItsActualFields",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.CatalogListControllerTest",
+                                            "Name":  "listBooks_shouldContainPersistedBookWithItsActualFields",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "nonexistentBorrowingBook_shouldReturn404WithConsistentBody",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "noSuchElement_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "unexpectedException_shouldReturn500WithoutInternalMessage",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "missingRequiredIds_shouldReturn400WithFieldErrors",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "entityNotFound_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "malformedJson_shouldReturn400WithTimestamp",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.GlobalExceptionHandlerTest",
+                                            "Name":  "alreadyBorrowedBook_shouldReturn409WithConsistentBody",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.MemberBorrowingControllerTest",
+                                            "Name":  "getMemberBorrowings_shouldReturnOnlyActiveBorrowings",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn404ForMissingBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "ac1_postAvailableBook_shouldReturn409AndExactMessage",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "deleteReservation_shouldReturn404ForMissingReservation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "deleteReservation_shouldReturn404ForMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "getReservations_shouldReturn404ForMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "deleteReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldAllowRecreationAfterCancellation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn404ForMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[1]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[2]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[3]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[4]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[5]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[6]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[7]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[8]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn400ForInvalidOrMissingIds(String)[9]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "deleteReservation_shouldReturn409ForRepeatedCancellation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldKeepIdDateAndActiveStateServerControlled",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "ac2_postReservation_shouldReturn201AndPersistExpectedFields",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "ac4_deleteReservation_shouldReturn204RetainInactiveRecordAndExcludeFromList",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "getReservations_shouldReturn200AndEmptyArrayForExistingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn409ForInactiveMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "postReservation_shouldReturn409ForActiveDuplicateWithoutSavingAnother",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "deleteReservation_shouldReturn404ForAnotherMembersRecordAndPreserveIt",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[1]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[2]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "memberEndpoints_shouldReturn400ForMalformedPathIds(String)[3]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.controller.ReservationControllerTest",
+                                            "Name":  "ac3_getReservations_shouldReturnOnlyMembersActiveRecords",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                            "Name":  "accessor_shouldPreventMutationOfTheResponseSnapshot",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                            "Name":  "constructor_shouldPreserveOptionalNullFieldErrors",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.dto.ErrorResponseDTOTest",
+                                            "Name":  "constructor_shouldSnapshotInputWithoutChangingOrderOrNullValues",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                            "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[1]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                            "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[2]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                            "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[3]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                            "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[4]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineTest",
+                                            "Name":  "returnBook_shouldCalculateFine(String, int, BigDecimal)[5]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                            "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[1]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                            "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[2]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                            "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[3]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                            "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[4]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingFineUnitTest",
+                                            "Name":  "calculateFine_shouldChargeOnlyForOverdueDays(String, LocalDate, BigDecimal)[5]",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingPersistenceTest",
+                                            "Name":  "returnBook_shouldPersistReturnAndAvailabilityAfterClearingContext",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                            "Name":  "returnBook_shouldMarkBookAsAvailableAndSetZeroFine",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceTest",
+                                            "Name":  "borrowBook_shouldMarkBookAsUnavailable",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "returnMissingBorrowing_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "borrowMissingMember_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "returnExactlyDue_shouldChargeZero",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "borrowAvailableBook_shouldPersistRelationshipsDatesAndAvailability",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "returnAlreadyReturned_shouldRejectWithoutChangingStateOrSaving",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "borrowMissingBook_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "fineZeroDaysLate_shouldBeZero",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "activeBorrowings_shouldReturnRepositoryResultsForMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "borrowUnavailableBook_shouldRejectConflict",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "fineAcrossMonthBoundary_shouldCountElapsedDays",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "activeBorrowingsExistingMemberWithoutLoans_shouldReturnEmptyList",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "fineNegativeDays_shouldBeZero",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "fineOneDayLate_shouldBeFiftyCents",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "activeBorrowingsMissingMember_shouldReturn404",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "returnThreeDaysLate_shouldChargeOneFifty",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "fineSevenDaysLate_shouldBeThreeFifty",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.BorrowingServiceUnitTest",
+                                            "Name":  "returnOnTime_shouldRecordZeroFineAndRestoreAvailability",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "ac4_cancelReservation_shouldPersistInactiveRecordAndExcludeItFromListing",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reservationLifecycle_shouldNotModifyBookMemberOrBorrowingData",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldRejectInactiveMemberWithoutSaving",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "ac3_getActiveReservations_shouldExcludeCancelledAndOtherMembersRecords",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "cancelReservation_shouldRejectAnotherMembersReservationWithoutChangingIt",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldAllowDifferentMembersToReserveSameBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "cancelReservation_shouldAllowInactiveMemberAndNowAvailableBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "ac1_availableBook_shouldBeRejectedWithExactMessage",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "cancelReservation_shouldRejectMissingReservation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldAllowNewReservationAfterCancellation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldRejectMissingBook",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "cancelReservation_shouldRejectMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldRejectMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "ac2_reserveBook_shouldPersistGeneratedIdRelationshipsDateAndActiveState",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "getActiveReservations_shouldReturnEmptyListForExistingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "getActiveReservations_shouldRejectMissingMember",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "cancelReservation_shouldRejectRepeatedCancellation",
+                                            "Outcome":  "passed"
+                                        },
+                                        {
+                                            "Class":  "com.example.libraryapi.service.ReservationServiceTest",
+                                            "Name":  "reserveBook_shouldRejectDuplicateActiveReservation",
+                                            "Outcome":  "passed"
+                                        }
+                                    ]
+                      },
+    "OriginalCasesPassing":  84,
+    "OriginalTestFilesUnchanged":  12,
+    "AllInitialSnapshotHashesUnchanged":  true,
+    "ProductionSourceRestoredSHA256":  "D4E26AE9D8C687FCA5E6F314916A33F957C2A2D97474CF88D40115A93FA0D4E5"
+}

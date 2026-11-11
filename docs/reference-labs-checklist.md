@@ -1,6 +1,6 @@
 # Reference Labs 2–8 — Assignment traceability
 
-Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, existing commits/tags, original tests, actual evidence, and student ownership of decisions. Lab3 was submitted at2d5a1d4/tag lab-3; Lab4 at d159267/lab-4; Lab5 at822e381/lab-5, with remote report history merged into main1cfca1b. The revised Lab4 report remains a separate pending change. The current instruction authorizes all Lab6 work; commit/tag/push require final review and approval. Labs7–8 remain planning only. Lab2's missing final lab-2 tag remains outstanding.
+Source: `SE_Lab_Assignment_2026_2027_Codex.docx`, document version 1.0, July 2026. Read in full before this checklist. Preserve the single existing project, existing commits/tags, original tests, actual evidence, and student ownership of decisions. Lab3 was submitted at2d5a1d4/tag lab-3; Lab4 at d159267/lab-4; Lab5 at822e381/lab-5; Lab6 atce03a35/lab-6. The revised Lab4 report remains a separate pending change. The current instruction authorizes all Lab7 work; student review and explicit approval are required before commit/tag/push. Lab8 remains unstarted. Lab2's missing final lab-2 tag remains outstanding.
 
 Every lab requires a report at the exact `reports/labN-report.md` path, a final commit on main tagged `lab-N`, artifacts committed, and a push to the existing origin. Inspect staged files before each commit. Do not invent personal hours, reflections, metrics, images, reviews, experiments, or outcomes. Record actual commands/results/errors in the active lab's evidence log. Screenshots are never a reason to stop independent work; log a precise capture checklist and use allowed tables/text alternatives.
 
@@ -132,7 +132,7 @@ Objective: measure/analyze quality and drive one improvement. Learning: PMD/Spot
 - Subsequent student instruction approved the final12-file Lab6 submission, exact message, lab-6 and origin push/remote verification. Fresh precommit suite84/0/0/0, exit0; reviewed evidence and pending Lab4 report preserved. Earlier pending markers describe preparation. Actual resulting Git refs are verified after execution; no Lab7 work is included.
 - Screenshots: JaCoCo summary (table alternative permitted), static-analysis before/after. Continue with actual XML/table evidence if screenshots pending.
 
-## Lab 7 — NOT STARTED
+## Lab 7 — technical work/report VERIFIED; final submission APPROVED
 
 Objective: structured tests, >=80% service coverage, AI test audit/evals. Learning: unit/integration/controller tests; generate then audit; coverage limits; test oracles and evals.
 
@@ -145,7 +145,15 @@ Objective: structured tests, >=80% service coverage, AI test audit/evals. Learni
 - G: final `mvn test`; commit `lab7: test suite, MockMvc integration tests, 80%+ coverage`, tag lab-7, push.
 - **reports/lab7-report.md**: before/after coverage table/image; per-test audit/counts (>=10 tests); each deliberate bug's failed/passed outcomes/oracle implications; personal paragraph connecting Lab3 ACs to evals; human trust assessment with two actual audit examples.
 - Rubric: all tests green (2); service >=80% line (3); meaningful audit >=10 tests (3); both deliberate bugs caught/explained (2).
-- Initial comparison: existing Lab2 tests offer baseline regression coverage, not this lab's full suite/audit/coverage/deliberate experiments. None is claimed complete early.
+- A completed: baseline84 tests,0 failures/errors/skips; overall lines290/306=94.77%, branches30/38=78.95%; service lines100/102=98.04%, branches20/20=100%. Exact baseline XML retained; no coverage exclusions/config changes.
+- B completed: actual initial14-method BorrowingServiceUnitTest covers prescribed12 scenarios plus public active-member query. MockitoExtension/@Mock repositories, no Spring;14/0/0/0. All previous tests preserved.
+- C completed AI source audit: initial14 Meaningful,0 vacuous Weak/0 Wrong oracles;3 Missing scenarios genuinely identified and fixed (repeat return/no writes, empty active list, cross-month fine), plus strengthened negative-operation/no-repository-interaction assertions. Audited17-unit suite passed. All22 generated methods including3 real-HTTP/2 catalog cases classified with reasons in report; initial source retained. Student must review this actual audit before submission approval; no prior human manual review is fabricated.
+- D completed: exact3 RANDOM_PORT/TestRestTemplate flows, with real HTTP persistence/state/error oracles. Two catalog MockMvc tests cover previously missed list queries and returned record fields. Full pre-experiment suite106/0/0/0.
+- E completed: actual rate1.00 mutant causes8 failures/98 passes; exact source restored and full106-case suite green. Independent null-zero mutant causes14 failures/92 passes; restored bytes and final106-case suite green. Both mutants have0 errors/skips. Full failing logs and per-case pass/fail JSON retained; no defect remains or is committed.
+- F/final complete: fresh JaCoCo execution data, final106 tests all passing. Overall lines296/306=96.73%, service102/102=100%, controller36/36=100%; overall branches30/38=78.95%, service20/20=100%. Remaining gaps are mapper-null guards and static main; no artificial tests merely inflate coverage. All original source/POM and12 prior test files match saved hashes; original84 cases all pass. Prior tags/history and pending Lab4 report preserved.
+- Report/evidence complete: one five-question reports/lab7-report.md and docs/lab7-evidence.md with strategy, coverage before/after,22-method audit, actual improvements, exact bug detections/non-detections, evals/AC link and two concrete human-review examples. Six essential raw artifacts only. Exact12-path submission list prepared in evidence and target; exclude Lab4 report/DOCX/startup inputs.
+- G approval-gated: exact message `lab7: test suite, MockMvc integration tests, 80%+ coverage`; no staging, commit, lab-7 or push yet. Lab8 is not started. Lab2's missing tag remains noted.
+- Subsequent student instruction approved the final12-file submission, exact message, lab-7 and origin push/verification. Fresh precommit suite106/0/0/0, overall line coverage96.73%, services100%; both deliberate defects fully restored and all original source/test/config hashes preserved. Earlier pending markers describe preparation; Git outcomes are verified after execution. Lab8 remains unstarted.
 - Screenshots: before/after JaCoCo (tables permitted), both real failing experiment summaries, final restored GREEN. Keep raw logs regardless of captures.
 
 ## Lab 8 — NOT STARTED
