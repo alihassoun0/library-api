@@ -1,202 +1,415 @@
-# Lab 7 – Software Testing
+# Lab 8 – Estimation and Cost
 
 **Project:** Library Management API  
 **Course:** Software Engineering (2026–2027)  
+**Instructor:** Rima Kilany Chamoun  
 **AI Development Tool:** OpenAI Codex CLI
 
-## 1. Introduction
+# 1. Function Point Analysis
 
-The purpose of this laboratory was to improve the testing of the Library Management API and evaluate whether its automated tests could detect incorrect behavior.
+Function Point Analysis (FPA) is a software measurement technique used to estimate the functional size of an application based on the services it provides rather than the number of lines of code.
 
-The work included unit testing, integration testing, controller testing, coverage analysis, and an audit of AI-generated tests. Two deliberate defects were also introduced temporarily to evaluate the ability of the test suite to identify incorrect results.
+For this laboratory, the analysis covers the completed Library Management API, including books, members, borrowings, and reservations. The hypothetical Fine Payment module is excluded because it has not been implemented.
 
-## 2. Testing Strategy
+## 1.1 Function Point Categories and Weights
 
-Four testing levels were used during this laboratory.
+The application was analyzed using the five categories specified in the assignment.
 
-| Testing Level | Purpose | Implementation |
-|---|---|---|
-| Unit Testing | Verify individual business rules and calculations. | JUnit 5 and Mockito. |
-| Integration Testing | Verify database operations and persistence. | Spring Boot tests with database verification. |
-| Controller Testing | Verify endpoints, HTTP status codes, and JSON responses. | MockMvc. |
-| End-to-End Testing | Verify complete application workflows through real HTTP requests. | TestRestTemplate with a random application port. |
-
-The different testing levels provide complementary verification. Unit tests isolate business logic, while integration and HTTP tests verify that the application components work together correctly.
-
-The tests covered borrowing, returning books, fine calculations, reservations, error handling, and catalog operations.
-
-## 3. Test Coverage Analysis
-
-JaCoCo was used to measure code coverage before and after the testing improvements.
-
-### 3.1 Overall Coverage
-
-| Measurement | Before | After |
-|---|---:|---:|
-| Overall line coverage | 94.77% | 96.73% |
-| Covered lines | 290 | 296 |
-| Total executable lines | 306 | 306 |
-| Overall branch coverage | 78.95% | 78.95% |
-| Service line coverage | 98.04% | 100% |
-| Service covered lines | 100 | 102 |
-
-The final overall line coverage reached 96.73%, exceeding the required 80% target.
-
-All four service classes achieved 100% line coverage:
-
-- BookService
-- MemberService
-- BorrowingService
-- ReservationService
-
-The controllers also achieved 100% line coverage after the additional tests.
-
-The application entry-point class, `LibraryApiApplication`, remained at 33.33% coverage because the Spring application-context tests did not execute its static main method.
-
-The results show that the additional tests improved coverage without excluding production classes or weakening existing assertions.
-
-## 4. Audit of AI-Generated Tests
-
-The generated tests were reviewed to determine whether they contained meaningful assertions and could detect incorrect behavior.
-
-The audit considered expected results, boundary conditions, test independence, repository interactions, and whether a test could detect incorrect application behavior.
-
-### 4.1 Audit Results
-
-The initial generated suite contained 14 test methods. All were classified as meaningful, but three missing scenarios were identified:
-
-1. Repeated return of an already returned book.
-2. An existing member with no active borrowings.
-3. Fine calculation across a calendar-month boundary.
-
-Additional assertions were also introduced to verify that rejected operations did not cause unwanted database changes.
-
-The final audit covered 22 generated test methods.
-
-### 4.2 Classification of Generated Tests
-
-| Test | Classification | Reason |
-|---|---|---|
-| Borrow available book | Meaningful | Checks borrowing ID, relationships, due date, and availability. |
-| Borrow missing book | Meaningful | Checks the correct 404 response and absence of writes. |
-| Borrow missing member | Meaningful | Checks 404 and prevents unwanted database changes. |
-| Borrow unavailable book | Meaningful | Checks conflict handling and unchanged book state. |
-| Return on time | Meaningful | Verifies return date, zero fine, and restored availability. |
-| Return three days late | Meaningful | Checks the independently expected €1.50 fine. |
-| Return missing borrowing | Meaningful | Checks 404 and prevents unnecessary repository operations. |
-| Return exactly on due date | Meaningful | Verifies the zero-fine boundary. |
-| Fine for zero overdue days | Meaningful | Checks a non-null zero result. |
-| Fine for one overdue day | Meaningful | Checks the €0.50 expected fine. |
-| Fine for seven overdue days | Meaningful | Checks the €3.50 expected fine. |
-| Fine for negative overdue days | Meaningful | Ensures an early return does not produce a negative fine. |
-| Retrieve active borrowings | Meaningful | Checks the member-specific repository query. |
-| Active borrowings for missing member | Meaningful | Checks the expected 404 response. |
-| Return already returned book | Meaningful | Checks rejection and preservation of the existing state. |
-| Existing member with empty borrowing list | Meaningful | Checks that an empty list is returned correctly. |
-| Fine across month boundary | Meaningful | Verifies that January 31 to February 1 represents one overdue day. |
-| Create and borrow through HTTP | Meaningful | Verifies the complete book and borrowing workflow. |
-| Borrow and return through HTTP | Meaningful | Checks availability and fine information through real HTTP requests. |
-| Attempt a second borrowing | Meaningful | Checks HTTP 409 and prevents duplicate active borrowing. |
-| Retrieve books using MockMvc | Meaningful | Verifies the actual saved book fields in the response. |
-| Retrieve members using MockMvc | Meaningful | Verifies the actual saved member fields in the response. |
-
-**Final classification: 22 meaningful tests, 0 weak tests, and 0 wrong-oracle tests.**
-
-The audit also identified weaknesses in some initially generated tests. For example, a missing-member test originally checked the HTTP error but did not verify that the operation had avoided unwanted database changes. Additional assertions were introduced to address this weakness.
-
-The three missing scenarios were also added and tested successfully.
-
-## 5. Deliberate Bug Detection Experiments
-
-Two deliberate defects were temporarily introduced to evaluate whether the test suite could detect incorrect behavior.
-
-The correct production implementation was restored after each experiment.
-
-### 5.1 Experiment 1: Changing the Fine Rate
-
-The original daily fine rate was €0.50. It was temporarily changed to €1.00.
-
-The results were:
-
-| Result | Count |
-|---|---:|
-| Total tests | 106 |
-| Passed | 98 |
-| Failed | 8 |
-| Errors | 0 |
-
-Eight tests detected the incorrect fine amounts.
-
-The tests involving one-day, three-day, seven-day, and month-boundary overdue calculations failed because their expected monetary values no longer matched the implementation.
-
-Tests involving zero fines continued to pass because changing the rate did not affect zero-fine calculations.
-
-### 5.2 Experiment 2: Replacing Zero with Null
-
-The implementation was temporarily modified to return `null` instead of `BigDecimal.ZERO` when there were no overdue days.
-
-The results were:
-
-| Result | Count |
-|---|---:|
-| Total tests | 106 |
-| Passed | 92 |
-| Failed | 14 |
-| Errors | 0 |
-
-Fourteen tests detected the incorrect zero-fine behavior.
-
-These included unit, integration, persistence, MockMvc, and real HTTP tests.
-
-Tests involving positive overdue fines continued to pass because their calculations were not affected by the zero-value change.
-
-### 5.3 Final Experiment Results
-
-| Test State | Passed | Failed | Errors |
+| Element | Simple | Average | Complex |
 |---|---:|---:|---:|
-| Before experiments | 106 | 0 | 0 |
-| Fine rate changed to 1.00 | 98 | 8 | 0 |
-| Zero replaced by null | 92 | 14 | 0 |
-| Final corrected implementation | 106 | 0 | 0 |
+| External Inputs (EI) | 3 | 4 | 6 |
+| External Outputs (EO) | 4 | 5 | 7 |
+| External Inquiries (EQ) | 3 | 4 | 6 |
+| Internal Logical Files (ILF) | 7 | 10 | 15 |
+| External Interface Files (EIF) | 5 | 7 | 10 |
 
-Both defects were fully restored, and no deliberate bug remained in the final production code.
+External inputs represent operations that modify application data. External outputs provide processed information, while external inquiries retrieve information without modifying stored data. Internal logical files represent the application's main data groups, and external interface files represent its technical interfaces.
 
-These experiments demonstrated that meaningful assertions are necessary to detect incorrect behavior. High coverage alone does not guarantee that tests will identify every defect.
+## 1.2 Function Inventory and Complexity
 
-## 6. Acceptance Criteria and AI Evals
+Each operation was classified according to its fields, relationships, and business rules.
 
-The acceptance criteria defined in Lab 3 serve a similar purpose to AI evaluations, commonly called evals.
+### External Inputs
 
-Each criterion describes an expected result that can be checked independently of how the feature is implemented.
+| Operation | Complexity | FP |
+|---|---|---:|
+| POST /books | Simple | 3 |
+| PUT /books/{id} | Average | 4 |
+| DELETE /books/{id} | Simple | 3 |
+| POST /members | Simple | 3 |
+| POST /borrowings | Average | 4 |
+| PUT /borrowings/{id}/return | Complex | 6 |
+| POST /reservations | Complex | 6 |
+| DELETE /members/{memberId}/reservations/{reservationId} | Average | 4 |
+| **Total** | | **33** |
 
-For example, the reservation feature requires the API to reject a reservation when the book is available and return HTTP 409 with the specified error message.
+The borrowing and reservation operations have higher complexity because they involve additional business rules, such as book availability, member eligibility, fine calculation, and duplicate reservation checks.
 
-A failing evaluation would occur if the API returned HTTP 200 instead of HTTP 409, provided an incorrect error message, or returned reservations belonging to another member.
+### External Outputs and Inquiries
 
-These criteria allow generated code to be evaluated against the original requirements rather than simply checking whether it compiles or starts successfully.
+All six existing GET operations were classified as external inquiries because they retrieve stored information without performing a separate business calculation.
 
-## 7. Reliability of AI-Generated Tests
+| Operation | Complexity | FP |
+|---|---|---:|
+| GET /books | Simple | 3 |
+| GET /books/{id} | Simple | 3 |
+| GET /members | Simple | 3 |
+| GET /members/{id} | Simple | 3 |
+| GET /members/{id}/borrowings | Average | 4 |
+| GET /members/{memberId}/reservations | Average | 4 |
+| **Total inquiries** | | **20** |
 
-AI-generated tests should not be trusted without human review.
+No separate calculated external output was counted because the current API does not contain a dedicated calculated-report endpoint.
 
-During this laboratory, the initial test suite contained meaningful tests but still lacked important scenarios, including repeated returns and empty active-borrowing lists.
+### Internal Logical Files
 
-Some tests also required stronger assertions to verify that rejected operations did not modify application data.
+| Entity | Complexity | FP |
+|---|---|---:|
+| Book | Simple | 7 |
+| Member | Simple | 7 |
+| Borrowing | Average | 10 |
+| Reservation | Average | 10 |
+| **Total** | | **34** |
 
-Reviewing and improving the tests made their expected results more precise and independent of the implementation.
+### External Interface Files
 
-The deliberate bug experiments provided further evidence that the final test suite could detect incorrect fine calculations and invalid zero-fine values.
+| Interface | Complexity | FP |
+|---|---|---:|
+| H2 Database Integration | Simple | 5 |
+| OpenAPI / Swagger | Average | 7 |
+| **Total** | | **12** |
 
-This demonstrated that AI can help generate tests, but human review remains necessary to ensure that they are accurate and capable of detecting real problems.
+H2 and OpenAPI are counted according to the interface convention explicitly provided in the professor's assignment.
 
-## Conclusion
+## 1.3 Unadjusted Function Point Calculation
 
-This laboratory demonstrated the importance of evaluating both application functionality and the quality of its tests.
+| Element | Simple | Average | Complex | Weighted FP |
+|---|---:|---:|---:|---:|
+| External Inputs | 3 × 3 | 3 × 4 | 2 × 6 | 33 |
+| External Outputs | 0 × 4 | 0 × 5 | 0 × 7 | 0 |
+| External Inquiries | 4 × 3 | 2 × 4 | 0 × 6 | 20 |
+| Internal Logical Files | 2 × 7 | 2 × 10 | 0 × 15 | 34 |
+| External Interfaces | 1 × 5 | 1 × 7 | 0 × 10 | 12 |
+| **Total UFP** | | | | **99** |
+
+Therefore:
+
+UFP = 33 + 0 + 20 + 34 + 12
+
+**Total UFP = 99 Function Points**
+
+This represents the estimated functional size of the current Library Management API based on the selected counting assumptions.
+
+# 2. Function Point Effort Estimation
+
+The professor provides a productivity reference of 8–10 Function Points per person-day for a junior developer working with modern development tools.
+
+For this calculation, the midpoint of 9 Function Points per person-day is used. A working day contains 7.5 hours.
+
+## 2.1 Estimated Development Effort
+
+Estimated Days = UFP / Productivity
+
+Estimated Days = 99 / 9
+
+**Estimated Days = 11 person-days**
+
+Estimated Hours = Estimated Days × 7.5
+
+Estimated Hours = 11 × 7.5
+
+**Estimated Effort = 82.5 person-hours**
+
+## 2.2 Productivity Sensitivity Analysis
+
+| Productivity | Person-Days | Person-Hours |
+|---|---:|---:|
+| 8 FP/day | 12.375 | 92.81 |
+| 9 FP/day | 11.000 | 82.50 |
+| 10 FP/day | 9.900 | 74.25 |
+
+The estimated effort ranges from approximately 74.25 to 92.81 person-hours, with 82.5 hours as the midpoint.
+
+These values are model-based estimates rather than measurements of the time actually spent on the project.
+
+# 3. Estimated Versus Actual Effort
+
+The following table compares the approximate time spent completing the eight laboratories.
+
+The actual hours are retrospective estimates reconstructed from memory, rather than formally recorded time measurements.
+
+## 3.1 Actual Effort Across the Eight Labs
+
+| Lab | Topic | Actual Hours (Approx.) |
+|---|---|---:|
+| 1 | Introduction to AI-Assisted Development | 2 |
+| 2 | Agile Methodologies and TDD | 3 |
+| 3 | Requirements and Specification | 2 |
+| 4 | Design, Implementation and Deployment | 3.5 |
+| 5 | Refactoring | 2.5 |
+| 6 | Measures and Metrics | 2 |
+| 7 | Software Testing | 1.5 |
+| 8 | Estimation and Cost | 1 |
+| **Total** | | **17.5 hours** |
+
+The Lab 8 figure represents the approximate effort recorded for the work completed during preparation of this report.
+
+## 3.2 Lab 2 Estimation Comparison
+
+Lab 2 is the only laboratory for which an original personal estimate was recovered.
+
+Original estimated effort = 10 hours
+
+Approximate actual effort = 3 hours
+
+Actual-to-estimated ratio:
+
+3 / 10 = **0.30**
+
+This indicates that the retrospectively estimated actual effort was approximately 30% of the original forecast.
+
+The earlier story-level figures totaling 5.5 hours were not a reliable measurement of the total elapsed time and were therefore not used as the actual total.
+
+The other original personal forecasts were not formally recorded. Consequently, a complete project-wide actual-to-estimated ratio and velocity multiplier cannot be calculated reliably.
+
+## 3.3 DeMarco Estimation Quality Factor
+
+The professor's lecture defines the Estimation Quality Factor (EQF) as:
+
+**EQF = Area under the actual-cost curve / Area between the estimated-cost and actual-cost curves**
+
+For a final actual cost A and a fixed estimate E maintained over a period T, an illustrative fixed-estimate expression is:
+
+EQF = (A × T) / (|E − A| × T)
+
+The duration cancels:
+
+**EQF = A / |E − A|**
+
+However, the complete project does not have recorded original forecasts and dated estimate revisions for all eight laboratories. Therefore, a reliable project-wide EQF cannot be calculated.
+
+The available Lab 2 ratio is not a substitute for the complete project estimation history.
+
+This limitation demonstrates the importance of recording initial forecasts and updating estimates throughout the development process.
+
+# 4. COCOMO 81 – Hypothetical Fine Payment Module
+
+The professor proposes extending the Library Management API with a Fine Payment module.
+
+The proposed module would allow members to view outstanding fines, allow librarians to record payments, and generate monthly fine reports.
+
+This module is hypothetical and was not implemented in the current application.
+
+## 4.1 Functional Requirements
+
+| Endpoint | Description |
+|---|---|
+| GET /members/{id}/fines | Retrieves outstanding fines belonging to a member. |
+| POST /fines/{id}/pay | Allows a librarian to mark an unpaid fine as paid. |
+| GET /reports/fines?month=YYYY-MM | Generates a monthly summary of fines. |
+
+The existing borrowing records already contain fine amounts. For this estimate, each fine is associated with one borrowing record, and the borrowing ID identifies the fine.
+
+A separate FinePayment record could store the borrowing reference and payment date. A unique borrowing reference would help prevent duplicate payments.
+
+The monthly report would distinguish between fines assessed during a month and payments recorded during that month.
+
+The estimate excludes payment gateway integration, a new authentication system, and historical accounting functionality.
+
+## 4.2 Three-Point LOC Estimation
+
+The hypothetical module was estimated using minimum, best-fit, and maximum lines of code.
+
+| Component | Minimum LOC | Best-fit LOC | Maximum LOC |
+|---|---:|---:|---:|
+| Payment entity, repository and queries | 50 | 80 | 130 |
+| Service logic and validation | 100 | 150 | 240 |
+| Controllers and DTOs | 70 | 110 | 170 |
+| Mapping and error handling | 40 | 80 | 140 |
+| **Total** | **260** | **420** | **680** |
+
+The minimum estimate assumes straightforward implementation and reuse of existing components. The best-fit estimate includes normal validation, payment checks, and monthly calculations. The maximum estimate allows for more complex queries and integration work.
+
+## 4.3 Weighted LOC Estimate
+
+The three-point estimate is calculated using:
+
+Estimated LOC = (Minimum + 4 × Best-fit + Maximum) / 6
+
+Estimated LOC = (260 + 4 × 420 + 680) / 6
+
+Estimated LOC = 2620 / 6
+
+**Estimated Size = 436.67 LOC**
+
+## 4.4 Convert LOC into KLOC
+
+KLOC = LOC / 1000
+
+KLOC = 436.67 / 1000
+
+**KLOC = 0.43667**
+
+## 4.5 COCOMO Effort Calculation
+
+The Organic COCOMO 81 model uses:
+
+- α = 2.4
+- β = 1.05
+
+Effort = α × KLOC^β
+
+Effort = 2.4 × (0.43667)^1.05
+
+**Effort ≈ 1.00547 person-months**
+
+Using 152 working hours per person-month:
+
+Estimated Hours = 1.00547 × 152
+
+**Estimated Effort ≈ 152.83 person-hours**
+
+## 4.6 Development Duration
+
+TDEV = 2.5 × Effort^0.38
+
+TDEV = 2.5 × (1.00547)^0.38
+
+**TDEV ≈ 2.50519 months**
+
+## 4.7 Average Team Size
+
+Average Team Size = Effort / Development Duration
+
+Average Team Size = 1.00547 / 2.50519
+
+**Average Team Size ≈ 0.40135 FTE**
+
+### COCOMO Results Summary
+
+| Metric | Result |
+|---|---:|
+| Weighted project size | 436.67 LOC |
+| Development effort | 1.00547 person-months |
+| Effort in hours | 152.83 hours |
+| Development duration | 2.50519 months |
+| Average team allocation | 0.40135 FTE |
+
+These are theoretical estimates for the hypothetical extension, not actual development measurements.
+
+# 5. AI Productivity Analysis
+
+Software productivity can be evaluated using different measurements. This project uses Lines of Code per hour and Function Points per hour to examine the relationship between the amount of software produced and the effort spent.
+
+## 5.1 Project Size
+
+The current Library Management API contains:
+
+| Measurement | Result |
+|---|---:|
+| Number of Java source files | 30 |
+| Physical Java source lines | 1,249 |
+| Unadjusted Function Points | 99 |
+
+The source-code count includes imports, annotations, accessors, comments, and blank lines.
+
+## 5.2 LOC per Hour
+
+LOC per hour measures the number of physical source-code lines produced per hour.
+
+LOC/hour = Total Source Lines / Total Actual Hours
+
+LOC/hour = 1,249 / 17.5
+
+**LOC/hour ≈ 71.37**
+
+## 5.3 Function Points per Hour
+
+Function Points per hour measure the functional size delivered relative to the time spent.
+
+FP/hour = Total UFP / Total Actual Hours
+
+FP/hour = 99 / 17.5
+
+**FP/hour ≈ 5.66**
+
+These values are approximate because the actual hours were reconstructed from memory rather than formally recorded.
+
+## 5.4 Interpretation
+
+Almost all Java classes and methods in the project were generated by Codex. Therefore, Lines of Code alone do not provide a complete picture of development productivity.
+
+AI can generate large amounts of source code quickly, but additional lines do not necessarily represent additional functionality or better software quality.
+
+For example, the project gained 22 additional test methods during Lab 7 without increasing the production source-code line count. This strengthened verification without increasing the measured production LOC.
+
+For this project, FP/hour provides a more meaningful indication of productivity because it measures the functionality delivered rather than the amount of code generated.
+
+Function Points provide a more consistent basis for evaluating the actual features delivered, although they still depend on accurate complexity classifications and effort estimates.
+
+Neither metric alone is sufficient to evaluate software quality. Testing results, maintainability, and correctness must also be considered.
+
+# 6. Final Reflection on the Software Engineering Lifecycle
+
+The eight laboratories demonstrated how the different stages of the software engineering lifecycle work together to develop and improve a software application.
+
+Throughout this project, OpenAI Codex assisted with generating code, creating tests, identifying problems, performing refactoring, and analyzing software quality. However, the development process still required clear requirements, human review, and verification.
+
+**Requirements and Specification**
+
+Lab 3 demonstrated the importance of defining requirements before implementation. Writing business rules and acceptance criteria for the reservation feature helped establish clear expectations and made it easier to verify whether the implemented functionality was correct.
+
+**Design and Implementation**
+
+Labs 1 and 4 focused on building the application and improving its architecture. The introduction of service layers, DTOs, mappers, and global exception handling helped separate responsibilities and improve maintainability.
+
+**Refactoring and Quality Improvement**
+
+Lab 5 demonstrated that existing code can be improved without changing its intended behavior. Extracting methods, replacing magic numbers, and centralizing repeated logic made the application easier to maintain.
+
+**Testing and Measurement**
+
+Labs 6 and 7 highlighted the importance of software quality measurement and testing. Static analysis, code coverage, and deliberate bug experiments helped identify potential weaknesses and evaluate whether the tests could detect incorrect behavior.
 
 The final test suite contained 106 passing tests, with 96.73% overall line coverage and 100% service line coverage.
 
-The test audit identified missing scenarios and strengthened assertions, while the deliberate bug experiments showed that the tests could detect important calculation and boundary errors.
+**Estimation and Cost**
 
-I learned that high code coverage alone does not guarantee reliable software. Tests must contain meaningful assertions and verify the expected behavior of the application.
+Lab 8 connected the completed application to software estimation techniques. Function Point Analysis and COCOMO 81 provided ways to estimate functional size and development effort.
 
-AI can accelerate test creation, but human review and verification remain essential to ensure software reliability.
+The comparison also demonstrated that Lines of Code are not always a reliable productivity measure when AI generates most of the implementation.
+
+**Overall Experience with AI-Assisted Development**
+
+Using Codex made implementation faster and helped reduce repetitive programming work. However, it did not eliminate the need to understand the requirements, review generated code, identify errors, and verify the final results.
+
+The most important lesson from this project is that AI can support the software development process, but it cannot replace engineering judgment. The developer remains responsible for the quality, correctness, and reliability of the final application.
+
+# 7. Conclusion and Final Results
+
+The eight software engineering laboratories provided practical experience in developing, improving, testing, and evaluating the Library Management API.
+
+The project progressed from an initial REST API into a more structured application with borrowing, returning, reservations, DTOs, global exception handling, API documentation, and Docker deployment.
+
+The final project results are summarized below:
+
+| Area | Final Result |
+|---|---|
+| Functional size | 99 Unadjusted Function Points |
+| Function Point effort estimate | 11 person-days (82.5 hours) |
+| Production Java files | 30 |
+| Physical Java source lines | 1,249 |
+| Approximate actual effort | 17.5 hours |
+| Final automated test suite | 106 passed |
+| Overall line coverage | 96.73% |
+| Service line coverage | 100% |
+| Hypothetical Fine Payment module | 436.67 estimated LOC |
+| COCOMO development effort | 1.00547 person-months |
+
+The Function Point estimate concerns the current application, while the COCOMO calculation concerns a hypothetical extension. They represent different scopes.
+
+The use of AI assistance accelerated code generation and helped with testing and analysis. However, requirements definition, reviewing generated code, validating results, and making engineering decisions remained essential throughout the project.
+
+One important lesson was that successful software development cannot be judged by the amount of code generated alone. Functional correctness, maintainability, meaningful testing, and reliable verification are equally important.
+
+Overall, this project demonstrated how AI-assisted development can support the software engineering lifecycle when combined with proper planning, human supervision, and systematic testing.
