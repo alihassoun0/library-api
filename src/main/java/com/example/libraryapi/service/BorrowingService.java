@@ -19,6 +19,9 @@ import java.util.List;
 @Service
 public class BorrowingService {
 
+    private static final BigDecimal DAILY_FINE_RATE = new BigDecimal("0.50");
+    private static final int DEFAULT_LOAN_DAYS = 14;
+
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
     private final BorrowingRepository borrowingRepository;
@@ -50,7 +53,7 @@ public class BorrowingService {
         borrowing.setBook(book);
         borrowing.setMember(member);
         borrowing.setBorrowDate(today);
-        borrowing.setDueDate(today.plusDays(14));
+        borrowing.setDueDate(today.plusDays(DEFAULT_LOAN_DAYS));
 
         return borrowingRepository.save(borrowing);
     }
@@ -64,6 +67,11 @@ public class BorrowingService {
             throw new IllegalStateException("Book has already been returned");
         }
 
+        applyReturnState(borrowing);
+        return borrowingRepository.save(borrowing);
+    }
+
+    private void applyReturnState(Borrowing borrowing) {
         LocalDate today = LocalDate.now();
         BigDecimal fine = calculateFine(borrowing.getDueDate(), today);
         borrowing.setReturnDate(today);
@@ -72,8 +80,6 @@ public class BorrowingService {
         Book book = borrowing.getBook();
         book.setAvailable(true);
         bookRepository.save(book);
-
-        return borrowingRepository.save(borrowing);
     }
 
     @Transactional(readOnly = true)
@@ -86,9 +92,13 @@ public class BorrowingService {
 
     public BigDecimal calculateFine(LocalDate dueDate, LocalDate returnDate) {
         long overdueDays = ChronoUnit.DAYS.between(dueDate, returnDate);
+        return calculateFine(overdueDays);
+    }
+
+    private BigDecimal calculateFine(long overdueDays) {
         if (overdueDays <= 0) {
             return BigDecimal.ZERO;
         }
-        return new BigDecimal("0.50").multiply(BigDecimal.valueOf(overdueDays));
+        return DAILY_FINE_RATE.multiply(BigDecimal.valueOf(overdueDays));
     }
 }

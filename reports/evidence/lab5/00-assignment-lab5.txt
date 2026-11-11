@@ -1,0 +1,62 @@
+﻿Lab 5 — Refactoring1
+Lab 5 — Refactoring
+Chapter: 5 — RefactoringEstimated time: 2.5 hoursObjective: Identify code smells in the existing codebase, apply targeted refactoring patterns from the chapter, and verify that behavior is preserved with regression tests.
+
+Learning objectives
+Identify at least three named code smells in AI-generated code
+Apply specific refactoring patterns (Extract Method, Replace Magic Number, Extract Class, Introduce Parameter Object)
+Prove that refactoring preserves behavior by running a test suite before and after each transformation
+Understand the connection between AI-generated code and technical debt
+
+Background
+The lecture defines refactoring as changes to the internal structure of a program without changing its external behavior. The key word is without: you must have tests before you refactor, or you have no proof the behavior was preserved. This lab makes that constraint real.
+
+Step A — Establish a test baseline
+Before touching any code, make sure all tests pass:
+mvn test
+Note the number of tests and the pass rate. This is your green baseline. You must return to this green baseline after every refactoring step.
+
+Step B — Identify code smells
+Ask Codex to act as a refactoring analyst:
+Analyze the entire src/main/java directory for code smells from this list.For each smell found, quote the specific lines of code and name the refactoringpattern that should fix it:- Long Method (method > 15 lines)- Magic Numbers (numeric literals not assigned to named constants)- Feature Envy (method uses another class's data more than its own)- God Class (class with too many responsibilities)- Duplicate Code (similar logic repeated in two or more places)- Primitive Obsession (using primitives instead of small value objects)- Inappropriate Intimacy (class accessing private details of another)Prioritize by severity. List at least 5 smells.
+Review the output. For this lab, select three smells to fix — choose at least one from BorrowingService (which has the fine calculation).
+
+Step C — Refactoring 1: Extract Method
+The fine calculation is likely a long or complex expression inside returnBook(). Extract it:
+In BorrowingService.returnBook(), the fine calculation is inline.Extract it into a private method called calculateFine(LocalDate dueDate, LocalDate returnDate)that returns BigDecimal. Apply the Extract Method refactoring.Do not change the logic — only extract it.After extracting, run mvn test and confirm all tests still pass.
+Run mvn test. If tests fail, revert and diagnose before continuing.
+
+Step D — Refactoring 2: Replace Magic Number
+The value 0.50 (daily fine rate) and 14 (default loan duration in days) appear as magic numbers in BorrowingService. Replace them with named constants.Use Java's static final for class-level constants.Suggested names: DAILY_FINE_RATE (BigDecimal) and DEFAULT_LOAN_DAYS (int).After replacing, run mvn test and confirm all tests still pass.
+
+Step E — Refactoring 3: your choice
+Choose one more smell from Step B and apply its corresponding refactoring. For each candidate, ask Codex:
+Apply the [REFACTORING NAME] refactoring to [CLASS/METHOD NAME].Explain each change you make and why it improves the design.After refactoring, run mvn test and confirm the green baseline is preserved.
+Common candidates: - If BorrowingController calls repositories directly (Feature Envy): move logic to service - If similar validation appears in multiple controllers (Duplicate Code): extract to a shared validator - If Borrowing has too many fields (Primitive Obsession): extract a LoanPeriod value class
+
+Step F — Measure technical debt before and after
+For each of the three refactorings I applied, answer the following:1. What was the code smell?2. Which refactoring pattern fixed it?3. What specific lines changed (show a before/after diff)?4. How does this change reduce future maintenance cost?
+
+Step G — Commit
+mvn test    # must be greengit add .git commit -m "lab5: three refactorings — extract method, magic numbers, [your third]"git tag lab-5git push origin main --tags
+
+Deliverable — reports/lab5-report.md
+Smell catalog: Paste the output of Step B. For each smell, rate its severity (high / medium / low) and explain your rating using the lecture’s maintainability criteria.
+Refactoring log: For each of the three refactorings, provide a before/after diff (you can use git diff HEAD~1 or paste the code blocks manually). Explain what the design improves.
+AI-generated debt: The lecture discusses preventive maintenance as the practice of refactoring before problems accumulate. Based on what you found in Step B, characterize the quality of the AI-generated code: did it introduce more technical debt than you would expect from a careful human developer? Give specific evidence.
+Regression safety: The lecture states that refactoring without tests is a rewrite in disguise. Describe what test you ran after each refactoring and what it would have caught if the refactoring had accidentally changed behavior.
+
+Grading (10 points)
+Criterion
+Points
+At least 3 distinct smells identified by name with code evidence
+3
+3 refactorings applied with passing tests before and after each
+4
+Report connects each refactoring to a specific maintenance improvement
+3
+
+
+Lab 5 — Refactoring
+10
+Ch 5 — Refactoring

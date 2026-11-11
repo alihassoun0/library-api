@@ -1,0 +1,36 @@
+﻿diff --git a/reports/evidence/lab5/06-extract-method-before.java.txt b/reports/evidence/lab5/06-extract-method-after.java.txt
+index 7162c2d..b7def64 100644
+--- a/reports/evidence/lab5/06-extract-method-before.java.txt
++++ b/reports/evidence/lab5/06-extract-method-after.java.txt
+@@ -67,6 +67,11 @@ public class BorrowingService {
+             throw new IllegalStateException("Book has already been returned");
+         }
+ 
++        applyReturnState(borrowing);
++        return borrowingRepository.save(borrowing);
++    }
++
++    private void applyReturnState(Borrowing borrowing) {
+         LocalDate today = LocalDate.now();
+         BigDecimal fine = calculateFine(borrowing.getDueDate(), today);
+         borrowing.setReturnDate(today);
+@@ -75,8 +80,6 @@ public class BorrowingService {
+         Book book = borrowing.getBook();
+         book.setAvailable(true);
+         bookRepository.save(book);
+-
+-        return borrowingRepository.save(borrowing);
+     }
+ 
+     @Transactional(readOnly = true)
+@@ -89,6 +92,10 @@ public class BorrowingService {
+ 
+     public BigDecimal calculateFine(LocalDate dueDate, LocalDate returnDate) {
+         long overdueDays = ChronoUnit.DAYS.between(dueDate, returnDate);
++        return calculateFine(overdueDays);
++    }
++
++    private BigDecimal calculateFine(long overdueDays) {
+         if (overdueDays <= 0) {
+             return BigDecimal.ZERO;
+         }

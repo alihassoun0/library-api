@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -23,20 +22,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErrorResponseDTO> handleConflict(IllegalStateException exception) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ErrorResponseDTO(exception.getMessage(), Instant.now(), Map.of()));
+        return ErrorResponseFactory.create(HttpStatus.CONFLICT, exception.getMessage());
     }
 
     @ExceptionHandler({EntityNotFoundException.class, NoSuchElementException.class})
     public ResponseEntity<ErrorResponseDTO> handleNotFound(Exception exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(exception.getMessage(), Instant.now(), Map.of()));
+        return ErrorResponseFactory.create(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorResponseDTO> handleResponseStatus(ResponseStatusException exception) {
-        return ResponseEntity.status(exception.getStatusCode())
-                .body(new ErrorResponseDTO(exception.getReason(), Instant.now(), Map.of()));
+        return ErrorResponseFactory.create(exception.getStatusCode(), exception.getReason());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -44,19 +40,16 @@ public class GlobalExceptionHandler {
         Map<String, String> fieldErrors = new LinkedHashMap<>();
         exception.getBindingResult().getFieldErrors()
                 .forEach(error -> fieldErrors.put(error.getField(), error.getDefaultMessage()));
-        return ResponseEntity.badRequest()
-                .body(new ErrorResponseDTO("Validation failed", Instant.now(), fieldErrors));
+        return ErrorResponseFactory.create(HttpStatus.BAD_REQUEST, "Validation failed", fieldErrors);
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponseDTO> handleInvalidRequest(Exception exception) {
-        return ResponseEntity.badRequest()
-                .body(new ErrorResponseDTO("Invalid request", Instant.now(), Map.of()));
+        return ErrorResponseFactory.create(HttpStatus.BAD_REQUEST, "Invalid request");
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleUnexpected(Exception exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponseDTO("Internal server error", Instant.now(), Map.of()));
+        return ErrorResponseFactory.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 }
